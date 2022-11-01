@@ -1,0 +1,28 @@
+{
+  "name": "greenfield-project",
+  "version": "1.0.0",
+  "description": "main branch of Greenfield project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristinetuazon/Greenfield-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristinetuazon/Greenfield-project/issues"
+  },
+  "homepage": "https://github.com/kristinetuazon/Greenfield-project#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "knex": "^2.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.20"
+  }
+}
