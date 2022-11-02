@@ -88,7 +88,6 @@ web_modules/
 .next
 out
 
-
 # vuepress v2.x temp and cache directory
 .temp
 
@@ -110,7 +109,6 @@ out
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-
 ### Node Patch ###
 # Serverless Webpack directories
 .webpack/
@@ -118,3 +116,6 @@ out
 #environment
 .env
 .env.local
+
+db/.DS_Store
+.DS_Store

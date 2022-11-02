@@ -4,9 +4,9 @@ module.exports = {
     development: {
         client: 'pg',
         connection: {
-            USERNAME: process.env.USERNAME,
-            PASSWORD: process.env.PASSWORD,
-            DATABASE: process.env.DATABASE,
+            host: process.env.host,
+            user: process.env.user,
+            database: process.env.database,
         },
         searchpath: 'public',
         pool: {
@@ -23,7 +23,7 @@ module.exports = {
     },
 production: {
     client: 'pg',
-    connection:  process.env.DATABASE,
+    connection:  process.env.database,
     searchpath: 'public',
     pool: {
         min: 2,
