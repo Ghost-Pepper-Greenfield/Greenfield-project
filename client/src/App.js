@@ -1,9 +1,14 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
+import Pomodoro from "./Pomodoro";
 
 function App() {
-  return <h1>Hello Blake 💕</h1>;
+  return (
+    <div className="app">
+      <Pomodoro />
+    </div>
+  );
 }
 
 export default App;
