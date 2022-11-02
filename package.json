@@ -24,7 +24,8 @@
   "homepage": "https://github.com/kristinetuazon/Greenfield-project#readme",
   "dependencies": {
     "express": "^4.18.2",
-    "knex": "^2.3.0"
+    "knex": "^2.3.0",
+    "pg": "^8.8.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
