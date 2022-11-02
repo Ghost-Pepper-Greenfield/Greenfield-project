@@ -4,8 +4,8 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex('study_time_table').del()
-  await knex('study_time_table').insert([
+  await knex('break_time_table').del()
+  await knex('break_time_table').insert([
     {id: 1, user_id: 1, time_start: '2017-04-20 12:29:45.964056', time_end: '2017-04-20 12:29:45.964056'},
     {id: 2, user_id: 2, time_start: '2017-04-20 12:29:45.964056', time_end: '2017-04-20 12:29:45.964056'},
     {id: 3, user_id: 5, time_start: '2017-04-20 12:29:45.964056', time_end: '2017-04-20 12:29:45.964056'},
