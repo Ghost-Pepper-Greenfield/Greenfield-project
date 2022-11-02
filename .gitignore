@@ -110,6 +110,9 @@ out
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# Misc
+.DS_Store
+
 
 ### Node Patch ###
 # Serverless Webpack directories
