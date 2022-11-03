@@ -6,17 +6,13 @@ export default function Pomodoro() {
   const [seconds, setSeconds] = useState<number>(5);
   const [displayMessage, setDisplayMessage] = useState<boolean>(false);
   const [runningTimer, setRunningTimer] = useState<boolean>(false);
-  const [focusMode, setFocusMode] = useState<boolean>(true);
-  let startFocusTime, stopFocusTime;
 
-  function startTimer(): void {
-    startFocusTime = new Date().getTime();
-    setRunningTimer(true);
-  }
-
-  function stopTimer(): void {
-    stopFocusTime = new Date().getTime();
-    setRunningTimer(false);
+  function handleTimer() {
+    if (!runningTimer) {
+      setRunningTimer(true);
+    } else {
+      setRunningTimer(false);
+    }
   }
 
   useEffect(() => {
@@ -35,7 +31,6 @@ export default function Pomodoro() {
             setSeconds(seconds);
             setMinutes(minutes);
             setDisplayMessage(!displayMessage);
-            setFocusMode(!focusMode);
           }
         } else {
           setSeconds(seconds - 1);
@@ -59,9 +54,9 @@ export default function Pomodoro() {
       </div>
       <div className="timer-button">
         {runningTimer === false ? (
-          <button onClick={startTimer}>Start</button>
+          <button onClick={handleTimer}>Start</button>
         ) : (
-          <button onClick={stopTimer}>Pause</button>
+          <button onClick={handleTimer}>Pause</button>
         )}
       </div>
     </div>
