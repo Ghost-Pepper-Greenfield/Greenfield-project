@@ -43,12 +43,12 @@ function setupServer() {
   //get all study times
   app.get("/time/study", async (req, res) => {
     try {
-        const times = await db('study_time_table')
-            .select('*')
-            .timeout(1500);
-            times.length > 0
-            ? res.status(200).send(times)
-            : res.status(404).send("sorry, no times found")
+      const times = await db('study_time_table')
+        .select('*')
+        .timeout(1500);
+        times.length > 0
+        ? res.status(200).send(times)
+        : res.status(404).send("sorry, no times found")
     } catch(err) {
         res.status(500).send(err);
     }
@@ -57,12 +57,12 @@ function setupServer() {
   //get all rest times
   app.get("/time/rest", async (req, res) => {
     try {
-        const times = await db('study_time_table')
-            .select('*')
-            .timeout(1500);
-            times.length > 0
-            ? res.status(200).send(times)
-            : res.status(404).send("sorry, no times found")
+      const times = await db('study_time_table')
+        .select('*')
+        .timeout(1500);
+        times.length > 0
+        ? res.status(200).send(times)
+        : res.status(404).send("sorry, no times found")
     } catch(err) {
         res.status(500).send(err);
     }
