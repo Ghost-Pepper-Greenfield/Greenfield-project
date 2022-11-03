@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
 
 export default function Login() {
-    const emailRef = useRef();
-    const passwordRef = useRef();
+    const emailRef= useRef(null);
+    const passwordRef = useRef(null);
     return <>
 
     <Card>
