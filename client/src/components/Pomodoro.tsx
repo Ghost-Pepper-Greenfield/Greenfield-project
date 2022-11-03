@@ -1,30 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { start } from "repl";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState<number>(25);
   const [seconds, setSeconds] = useState<number>(0);
   const [displayMessage, setDisplayMessage] = useState<boolean>(false);
+  const [runningTimer, setRunningTimer] = useState<boolean>(false);
+
+  const startTimer = () => {
+    setRunningTimer(true);
+  };
+
+  const stopTimer = () => {
+    setRunningTimer(false);
+  };
 
   useEffect(() => {
-    let timerInterval = setInterval(() => {
-      clearInterval(timerInterval);
+    if (runningTimer) {
+      let timerInterval = setInterval(() => {
+        clearInterval(timerInterval);
 
-      if (seconds === 0) {
-        if (minutes !== 0) {
-          setSeconds(59);
-          setMinutes(minutes - 1);
+        if (seconds === 0) {
+          if (minutes !== 0) {
+            setSeconds(59);
+            setMinutes(minutes - 1);
+          } else {
+            let minutes = displayMessage ? 24 : 4;
+            let seconds = 59;
+
+            setSeconds(seconds);
+            setMinutes(minutes);
+            setDisplayMessage(!displayMessage);
+          }
         } else {
-          let minutes = displayMessage ? 24 : 4;
-          let seconds = 59;
-
-          setSeconds(seconds);
-          setMinutes(minutes);
-          setDisplayMessage(!displayMessage);
+          setSeconds(seconds - 1);
         }
-      } else {
-        setSeconds(seconds - 1);
-      }
-    }, 1000);
+      }, 1000);
+    }
   }, [seconds]);
 
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -37,6 +49,13 @@ export default function Pomodoro() {
         <div className="timer">
           {timerMinutes}:{timerSeconds}
         </div>
+      </div>
+      <div className="timer-button">
+        {runningTimer === false ? (
+          <button onClick={startTimer}>Start</button>
+        ) : (
+          <button onClick={stopTimer}>Pause</button>
+        )}
       </div>
     </div>
   );
