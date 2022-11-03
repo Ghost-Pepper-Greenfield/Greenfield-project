@@ -12,6 +12,7 @@ function setupServer() {
     res.status(200).send("anything you're looking for in particular? in the meantime, here's a banana🍌");
   });
 
+  //will get all sessions from the corresponding firebase ID string
   app.get('/:user/sessions', async (req,res) => {
     const user = req.params.user;
     try{
@@ -23,6 +24,31 @@ function setupServer() {
         res.status(500).send(err);
     }
   })
+
+  //POST a time onto user's log
+  app.post('/:user/new-session', async (req, res) => {
+    const user = req.params.user;
+    try{
+        const sessions = await db('sessions-table')
+            .select('*')
+            .where('firebaseId', user)
+        const payload = req.body
+        console.log(payload)
+        sessions.push(payload);
+        res.status(201).send("new entry was successfully added!", sessions)
+    } catch(err) {
+        res.status(500).send(err);
+    }
+  })
+ 
+//LEADERBOARD
+  //get names
+  //get levels
+  //get experience
+
+  //add points for every study session.
+  app.patch("/level")
+
 //NAMES
   //get all users 
 //   app.get("/users", async (req, res) => {
@@ -128,13 +154,7 @@ function setupServer() {
 //     res.status(200).send(users[name])
 // })
 
-//LEADERBOARD
-  //get names
-  //get levels
-  //get experience
 
-  //add points for every study session.
-  app.patch("/level")
   return app;
 }
 
