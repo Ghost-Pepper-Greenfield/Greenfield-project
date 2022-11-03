@@ -1,38 +1,77 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  auth,
+  registerWithEmailAndPassword,
+  signInWithGoogle,
+} from "../firebase-config";
 
 export default function Register() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfRef = useRef();
-  return <>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  const history = useNavigate();
+
+  const register = () => {
+    if (!name) alert("Please enter name");
+    registerWithEmailAndPassword(name, email, password);
+  };
+  useEffect(() => {
+    if (loading) return;
+    if (user) history("/dashboard");
+  }, [user, loading]);
+
+
+  return (
+  <>
   <Card>
     <Card.Body>
     <h2 className="text-center mb-4">Sign Up</h2>
     <Form>
+      <Form.Group id="name">
+        <Form.Label> Full Name </Form.Label>
+        <Form.Control type="text"
+        value={name}
+        onChange = {(e)=> setName(e.target.value)}
+        />
+      </Form.Group>
+
       <Form.Group id="email">
         <Form.Label> Email </Form.Label>
-        <Form.Control type="email" ref={emailRef} required/>
+        <Form.Control 
+        type="text" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="E-mail Address"
+        />
       </Form.Group>
+
 
       <Form.Group id="password">
         <Form.Label> Password </Form.Label>
-        <Form.Control type="password" ref={passwordRef} required/>
+        <Form.Control
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        />
       </Form.Group>
 
+      <Button className="w-100"  
+      onClick={register}> Sign Up</Button>
 
-      <Form.Group id="password-conf">
-        <Form.Label> Confirm Password </Form.Label>
-        <Form.Control type="password" ref={passwordConfRef} required/>
-      </Form.Group>
-      <Button className="w-100"> Sign Up</Button>
+       <Button className="w-100"  
+      onClick={signInWithGoogle}> 
+      Register with Google</Button>
     </Form>
     </Card.Body>
   </Card>
 
   <div>
-    Do you already have an account? Log in
+    Already have an account? <Link to="/login">Login</Link> now.
   </div>
-  </>
+  </>)
   
 }

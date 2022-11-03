@@ -2,7 +2,8 @@ import { initializeApp } from "firebase/app";
 import {GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut} from "firebase/auth";
 import {getFirestore, query, getDocs, collection, where, addDoc,} from "firebase/firestore";
 
-const firebaseConfig = initializeApp({
+
+const firebaseConfig = {
   apiKey: "AIzaSyA92qNgg2aSgOSJ5VcOpu5nGMD1W6mF0o4",
   authDomain: "cc28-greenfield-project.firebaseapp.com",
   databaseURL: "https://cc28-greenfield-project-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -10,7 +11,7 @@ const firebaseConfig = initializeApp({
   storageBucket: "cc28-greenfield-project.appspot.com",
   messagingSenderId: "824008366724",
   appId: "1:824008366724:web:1f150fd123dfa9e4b980d1"
-})
+}
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
