@@ -15,26 +15,26 @@ function setupServer() {
   //get all users 
   app.get("/users", async (req, res) => {
     try {
-        const users = await db('user_table')
-            .select('*')
-            .timeout(1500);
-            users.length > 0
-            ? res.status(200).send(users)
-            : res.status(404).send("no users found")
+      const users = await db('user_table')
+        .select('*')
+        .timeout(1500);
+        users.length > 0
+        ? res.status(200).send(users)
+        : res.status(404).send("no users found")
     } catch(err) {
         res.status(500).send(err);
     }
   })
 
-  //get all names only
+  //get all names only (full names)
   app.get("/users/name", async (req, res) => {
     try {
-        const users = await db('user_table')
-            .select('first_name', 'last_name')
-            .timeout(1500);
-            users.length > 0
-            ? res.status(200).send(users)
-            : res.status(404).send("sorry, no users found")
+      const users = await db('user_table')
+        .select('first_name', 'last_name')
+        .timeout(1500);
+        users.length > 0
+        ? res.status(200).send(users)
+        : res.status(404).send("sorry, no users found")
     } catch(err) {
         res.status(500).send(err);
     }
