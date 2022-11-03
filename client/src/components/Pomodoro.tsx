@@ -6,14 +6,22 @@ export default function Pomodoro() {
   const [seconds, setSeconds] = useState<number>(0);
   const [displayMessage, setDisplayMessage] = useState<boolean>(false);
   const [runningTimer, setRunningTimer] = useState<boolean>(false);
+  const [currentMode, setCurrentMode] = useState<string>("Focus");
+  let startFocusTime, endFocusTime, startBreakTime, endBreakTime;
 
-  const startTimer = () => {
+  function startTimer(): void {
+    currentMode === "Focus"
+      ? (startFocusTime = new Date().getTime())
+      : (startBreakTime = new Date().getTime());
     setRunningTimer(true);
-  };
+  }
 
-  const stopTimer = () => {
+  function stopTimer(): void {
+    currentMode === "Focus"
+      ? (endFocusTime = new Date().getTime())
+      : (endBreakTime = new Date().getTime());
     setRunningTimer(false);
-  };
+  }
 
   useEffect(() => {
     if (runningTimer) {
@@ -45,7 +53,7 @@ export default function Pomodoro() {
   return (
     <div className="pomodoro">
       <div className="message">
-        {displayMessage && <div>Take a break! New session starts in...</div>}
+        {displayMessage && <p>Take a break! Next session starts in...</p>}
         <div className="timer">
           {timerMinutes}:{timerSeconds}
         </div>
