@@ -1,0 +1,16 @@
+* {
+  color: #003249;
+}
+
+.pomodoro {
+  display: flex;
+  align-items: center;
+}
+
+.timer {
+  font-size: 3rem;
+}
+
+.message {
+  font-size: 2rem;
+}
