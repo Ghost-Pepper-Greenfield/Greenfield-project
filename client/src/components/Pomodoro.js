@@ -1,22 +1,27 @@
 import "./Pomodoro.css";
 import React, { useState, useEffect } from "react";
+import moment from 'moment';
 
 export default function Pomodoro() {
-  const [minutes, setMinutes] = useState<number>(0);
-  const [seconds, setSeconds] = useState<number>(5);
-  const [displayMessage, setDisplayMessage] = useState<boolean>(false);
-  const [runningTimer, setRunningTimer] = useState<boolean>(false);
-  const [focusMode, setFocusMode] = useState<boolean>(true);
-  let startFocusTime, stopFocusTime;
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
+  const [displayMessage, setDisplayMessage] = useState(false);
+  const [runningTimer, setRunningTimer] = useState(false);
+  const [focusMode, setFocusMode] = useState(true);
+  let now, end, total;
 
-  function startTimer(): void {
-    startFocusTime = new Date().getTime();
-    setRunningTimer(true);
-  }
-
-  function stopTimer(): void {
-    stopFocusTime = new Date().getTime();
-    setRunningTimer(false);
+  function handleTimer() {
+    if (!runningTimer) {
+      now = moment();
+      console.log(now);
+      setRunningTimer(true);
+    } else {
+      end = moment();
+      console.log(end);
+      total = moment.duration(now.diff(end)).asSeconds();
+      console.log(total);
+      setRunningTimer(false);
+    }
   }
 
   useEffect(() => {
@@ -59,9 +64,9 @@ export default function Pomodoro() {
       </div>
       <div className="timer-button">
         {runningTimer === false ? (
-          <button onClick={startTimer}>Start</button>
+          <button onClick={handleTimer}>Start</button>
         ) : (
-          <button onClick={stopTimer}>Pause</button>
+          <button onClick={handleTimer}>Pause</button>
         )}
       </div>
     </div>
