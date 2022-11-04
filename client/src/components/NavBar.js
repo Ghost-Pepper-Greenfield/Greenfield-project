@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../styles/navbar.css";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,6 +7,9 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { logout } from "../firebase-config";
 
 export default function NavBar() {
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
       <>
       <Navbar className="navbar" variant="light">

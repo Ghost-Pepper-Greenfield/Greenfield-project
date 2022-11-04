@@ -20,6 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path = {'/'} element = {<MaintenancePage/>}/>
+          <Route path = {'/login'} element = {<Login/>}/>
           <Route path = {'/register'} element = {<Register/>}/>
           <Route path = {'/dashboard'} element = {<Dashboard/>}/>
           <Route path = {'/reset'} element = {<Reset/>}/>
