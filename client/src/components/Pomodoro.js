@@ -1,5 +1,9 @@
 import "./Pomodoro.css";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { db } from "../firebase-config";
+import { useNavigate } from "react-router-dom";
+import { query, collection, getDocs, where } from "firebase/firestore";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState(25);
@@ -7,6 +11,21 @@ export default function Pomodoro() {
   const [duration, setDuration] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
+  const [postObject, setPostObject] = useState({});
+  const [uid, setUid] = useState("");
+  const navigate = useNavigate();
+
+  const fetchUid = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setUid(data.uid);
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
+    }
+  };
 
   function startTimer() {
     setRunningTimer(true);
@@ -14,7 +33,23 @@ export default function Pomodoro() {
 
   function stopTimer() {
     setRunningTimer(false);
+    setPostObject({
+      firebaseId: uid,
+      date: new Date(),
+      duration: duration,
+    });
   }
+
+  async function saveProgress() {
+    const payLoad = axios.post(`/${uid}/new-session`, postObject);
+    console.log(payLoad.data);
+  }
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/database");
+    fetchUid();
+  }, [user, loading]);
 
   useEffect(() => {
     if (runningTimer) {
@@ -56,9 +91,14 @@ export default function Pomodoro() {
       </div>
       <div className="timer-button">
         {runningTimer === false ? (
-          <button onClick={startTimer}>Start</button>
+          <>
+            <button onClick={startTimer}>Start</button>
+            <button onClick={saveProgress}>Save</button>
+          </>
         ) : (
-          <button onClick={stopTimer}>Pause</button>
+          <>
+            <button onClick={stopTimer}>Pause</button>
+          </>
         )}
       </div>
     </div>
