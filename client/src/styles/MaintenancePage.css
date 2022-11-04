@@ -18,9 +18,6 @@
     width: 40vh ;
 }
 
-body {
-	color: #333;
-}
 #progressbar{
   height: 26px;
   position: absolute;

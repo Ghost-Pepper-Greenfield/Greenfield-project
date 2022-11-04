@@ -27,7 +27,9 @@ export default function Register() {
 
   return (
   <>
-  <Card>
+  <div id="login__wrapper" 
+  className="d-flex flex-column justify-content-center align-items-center">
+  <Card className="d-flex flex-column justify-content-center align-items-center">
     <Card.Body>
     <h2 className="text-center mb-4">Sign Up</h2>
     <Form>
@@ -71,6 +73,7 @@ export default function Register() {
 
   <div>
     Already have an account? <Link to="/">Login</Link> now.
+  </div>
   </div>
   </>)
   

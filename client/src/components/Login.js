@@ -3,6 +3,7 @@ import {Button, Card, Form} from 'react-bootstrap';
 import { auth, signInWithEmailAndPassword, signInWithGoogle } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from 'react-router-dom';
+import '../styles/login.css'
 
 
 export default function Login() {
@@ -19,9 +20,11 @@ export default function Login() {
     if (user) navigate("/dashboard");
   }, [user, loading]);
 
-  return (<div>
+  return (
+  <div id="login__wrapper" 
+  className="d-flex flex-column justify-content-center align-items-center">
   <Card>
-<Card.Body>
+<Card.Body className="d-flex flex-column justify-content-center align-items-center">
 <h2 className="text-center mb-4">Login</h2>
 <Form>
   <Form.Group id="email">
@@ -40,12 +43,14 @@ export default function Login() {
     onChange = {(e) => setPassword(e.target.value)}
     placeholder="Password"/>
   </Form.Group>
-
-  <Button className="w-100"
+  <br></br>
+  <Button 
+  className="w-100"
   onClick={() => signInWithEmailAndPassword(email,password)
   }> Login </Button>
-
+<br></br>
   <Button 
+  className="w-100"
   onClick={signInWithGoogle}>Login with Google</Button>
 </Form>
 </Card.Body>
