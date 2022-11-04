@@ -23,7 +23,7 @@ module.exports = {
     },
 production: {
     client: 'pg',
-    connection:  process.env.database,
+    connection:  process.env.database_url,
     searchpath: 'public',
     pool: {
         min: 2,

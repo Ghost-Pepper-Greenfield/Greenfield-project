@@ -35,7 +35,7 @@ function setupServer() {
             .where('firebaseId', user)
         const payload = req.body
         console.log(req.body);
-    try{
+    try {
         
         sessions.push(payload);
         res.status(201).send("new entry was successfully added!", sessions)
