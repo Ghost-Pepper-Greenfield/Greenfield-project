@@ -1,28 +1,57 @@
 import "./Pomodoro.css";
 import React, { useState, useEffect } from "react";
-import moment from 'moment';
+import axios from "axios";
+import { db, auth } from "../firebase-config";
+import { useNavigate } from "react-router-dom";
+import { query, collection, getDocs, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
+  const [duration, setDuration] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
-  const [focusMode, setFocusMode] = useState(true);
-  let now, end, total;
+  const [postObject, setPostObject] = useState({});
+  const [uid, setUid] = useState("");
+  const [user, loading, error] = useAuthState(auth);
+  const navigate = useNavigate();
 
-  function handleTimer() {
-    if (!runningTimer) {
-      now = moment();
-      console.log(now);
-      setRunningTimer(true);
-    } else {
-      end = moment();
-      console.log(end);
-      total = moment.duration(now.diff(end)).asSeconds();
-      console.log(total);
-      setRunningTimer(false);
+  const fetchUid = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0].data();
+      setUid(data.uid);
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
     }
+  };
+
+  function startTimer() {
+    setRunningTimer(true);
   }
+
+  function stopTimer() {
+    setRunningTimer(false);
+    setPostObject({
+      firebaseId: uid,
+      date: new Date(),
+      duration: duration,
+    });
+  }
+
+  async function saveProgress() {
+    const payLoad = axios.post(`/${uid}/new-session`, postObject);
+    console.log(payLoad.data);
+  }
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/database");
+    fetchUid();
+  }, [user, loading]);
 
   useEffect(() => {
     if (runningTimer) {
@@ -40,10 +69,10 @@ export default function Pomodoro() {
             setSeconds(seconds);
             setMinutes(minutes);
             setDisplayMessage(!displayMessage);
-            setFocusMode(!focusMode);
           }
         } else {
           setSeconds(seconds - 1);
+          setDuration(duration + 1);
         }
       }, 1000);
     }
@@ -64,9 +93,14 @@ export default function Pomodoro() {
       </div>
       <div className="timer-button">
         {runningTimer === false ? (
-          <button onClick={handleTimer}>Start</button>
+          <>
+            <button onClick={startTimer}>Start</button>
+            <button onClick={saveProgress}>Save</button>
+          </>
         ) : (
-          <button onClick={handleTimer}>Pause</button>
+          <>
+            <button onClick={stopTimer}>Pause</button>
+          </>
         )}
       </div>
     </div>
