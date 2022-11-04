@@ -47,6 +47,7 @@ function setupServer() {
   app.get('/leaderboard', async (req, res) => {
     try{
       const leaderboard = await db('sessions_table')
+        .select('firebaseId')
         .sum('duration')
         .groupBy('firebaseId')
       res.status(200).send(leaderboard);
