@@ -49,6 +49,17 @@ function setupServer() {
   //get names
   //get levels
   //get experience
+  app.get('/leaderboard', async (req, res) => {
+    try{
+      const leaderboard = await db('sessions_table')
+        .select('*')
+        .orderBy('duration', 'desc')
+        console.log(leaderboard)
+      res.status(200).send(leaderboard);
+    } catch(err) {
+      res.status(500).send(err);
+    }
+  })
 
   //add points for every study session.
   app.patch("/level")
