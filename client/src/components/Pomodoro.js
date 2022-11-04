@@ -14,7 +14,6 @@ export default function Pomodoro() {
 
   function stopTimer() {
     setRunningTimer(false);
-    console.log(duration);
   }
 
   useEffect(() => {
