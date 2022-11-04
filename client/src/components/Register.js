@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Button, Card, Form} from 'react-bootstrap';
+import {Button, Card, Form, Stack} from 'react-bootstrap';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -40,7 +40,7 @@ export default function Register() {
         onChange = {(e)=> setName(e.target.value)}
         />
       </Form.Group>
-
+      <br></br>
       <Form.Group id="email">
         <Form.Label> Email </Form.Label>
         <Form.Control 
@@ -51,7 +51,7 @@ export default function Register() {
         />
       </Form.Group>
 
-
+      <br></br>
       <Form.Group id="password">
         <Form.Label> Password </Form.Label>
         <Form.Control
@@ -61,12 +61,25 @@ export default function Register() {
         />
       </Form.Group>
 
-      <Button className="w-100"  
-      onClick={register}> Sign Up</Button>
+      <br></br>
+      <Stack gap={2} className="col-md-5 mx-auto">
+        <Button 
+        variant="outline-info"
+        size="sm"
+        className="w-100" 
+        onClick={register}> Sign Up</Button>
 
-       <Button className="w-100"  
-      onClick={signInWithGoogle}> 
-      Register with Google</Button>
+        <Button 
+        variant="outline-info"
+        size="sm"
+        className="w-100"  
+        onClick={signInWithGoogle}> 
+        Register with Google</Button>
+
+      </Stack>
+      
+
+     
     </Form>
     </Card.Body>
   </Card>

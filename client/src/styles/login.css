@@ -1,3 +1,4 @@
+
 #login__wrapper {
     display: flexbox;
     flex-direction: row;
@@ -5,4 +6,6 @@
     justify-content: center;
     background-color: #6a8eae;
     height: 100vh;
+    font-size: small;
   }
+

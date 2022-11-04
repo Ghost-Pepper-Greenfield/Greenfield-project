@@ -1,0 +1,25 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+#dashboard__wrapper {
+    display: flexbox;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #6a8eae;
+    height: 100vh;
+  }
+
+.mp__messagecard {
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
+    width: 40vh ;
+}
+
+p {
+    font-size: .9rem;
+    align-self: center;
+}
