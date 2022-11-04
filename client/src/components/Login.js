@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Button, Card, Form} from 'react-bootstrap';
 import { auth, signInWithEmailAndPassword, signInWithGoogle } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 export default function Login() {
@@ -50,5 +50,9 @@ export default function Login() {
 </Form>
 </Card.Body>
 </Card>
+
+<div>
+    Don't have an account? <Link to="/register">Register</Link> now.
+  </div>
 </div>)
 }

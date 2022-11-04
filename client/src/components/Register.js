@@ -70,7 +70,7 @@ export default function Register() {
   </Card>
 
   <div>
-    Already have an account? <Link to="/login">Login</Link> now.
+    Already have an account? <Link to="/">Login</Link> now.
   </div>
   </>)
   

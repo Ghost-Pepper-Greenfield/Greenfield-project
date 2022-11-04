@@ -1,0 +1,14 @@
+.navbar {
+    padding: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #9bd1e5;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+  }
+  
+  .navbar-header {
+    cursor: pointer;
+    margin-right: auto;
+  }
