@@ -50,5 +50,9 @@ export default function Login() {
 </Form>
 </Card.Body>
 </Card>
+
+<div>
+    Don't have an account? <Link to="/register">Register</Link> now.
+  </div>
 </div>)
 }

@@ -24,7 +24,7 @@ export default function Dashboard() {
   
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/");
+    if (!user) return navigate("/dashboard");
     fetchUserName();
   }, [user, loading]);
 
