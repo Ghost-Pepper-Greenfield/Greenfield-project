@@ -3,11 +3,13 @@ const path = require("path");
 const db = require('../db/knex');
 const bodyParser = require('body-parser');
 
+
 function setupServer() {
   const app = express();
 
   app.use(express.static(path.resolve(__dirname, "../client/build")));
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(express.json());
 
   app.get("/", (req, res) => {
@@ -18,47 +20,41 @@ function setupServer() {
   app.get('/:user/sessions', async (req,res) => {
     const user = req.params.user;
     try{
-        const sessions = await db('sessions_table')
-            .select('*')
-            .where('firebaseId',user)
-        res.send(sessions);
+      const sessions = await db('sessions_table')
+        .select('*')
+        .where('firebaseId',user)
+      res.send(sessions);
     }catch(err){
         res.status(500).send(err);
     }
   })
 
-  //POST a time onto user's log
-  app.post('/:user/new-session', async (req, res) => {
-    const user = req.params.user;
-    const sessions = await db('sessions-table')
-            .select('*')
-            .where('firebaseId', user)
-        const payload = req.body
-        console.log(req.body);
+  //POST a time onto log of all sessions
+  app.post('/new-session', async (req, res) => {
     try{
-        
-        sessions.push(payload);
-        res.status(201).send("new entry was successfully added!", sessions)
+      const payload = req.body;
+      const addSession = await db('sessions_table')
+        .select('*')
+        .insert(payload);
+      res.status(201).send("saved!");
     } catch(err) {
-        res.status(500).send(err);
+      res.status(500).send(err);
+    }
+    }
+  )
+
+//LEADERBOARD
+  app.get('/leaderboard', async (req, res) => {
+    try{
+      const leaderboard = await db('sessions_table')
+        .select('firebaseId')
+        .sum('duration')
+        .groupBy('firebaseId')
+      res.status(200).send(leaderboard);
+    } catch(err) {
+      res.status(500).send(err);
     }
   })
- //post test
-  app.post('/test', async (req, res) => {
-    console.log(req.body)
-    res.send(req.body).status(201);
-  })
-//get test
-app.get('/test', async (req,res) => {
-  const sessions = await db('sessions_table')
-      .select('*')
-  console.log(sessions)
-  res.send(sessions);
-})
-//LEADERBOARD
-  //get names
-  //get levels
-  //get experience
 
   //add points for every study session.
   app.patch("/level")
