@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 const [data, setData] = useState(null);
 
-useEffect(() => {
-  axios
+const getData = async () => {
+  await axios
     .get(`/${user}/sessions`)
     .then((res) => {
       setData(res);
@@ -11,6 +11,10 @@ useEffect(() => {
     .catch((err) => {
       console.error(err);
     });
-});
+};
+
+useEffect(() => {
+    getData();
+})
 
 console.log(data);
