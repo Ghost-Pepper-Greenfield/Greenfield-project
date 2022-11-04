@@ -20,41 +20,35 @@ function setupServer() {
   app.get('/:user/sessions', async (req,res) => {
     const user = req.params.user;
     try{
-        const sessions = await db('sessions_table')
-            .select('*')
-            .where('firebaseId',user)
-        res.send(sessions);
+      const sessions = await db('sessions_table')
+        .select('*')
+        .where('firebaseId',user)
+      res.send(sessions);
     }catch(err){
         res.status(500).send(err);
     }
   })
 
-  //POST a time onto user's log
+  //POST a time onto log of all sessions
   app.post('/new-session', async (req, res) => {
     try{
       const payload = req.body;
       const addSession = await db('sessions_table')
         .select('*')
         .insert(payload);
-        console.log(addSession);
-      res.status(201).send(payload);
+      res.status(201).send("saved!");
     } catch(err) {
       res.status(500).send(err);
     }
     }
   )
 
-
 //LEADERBOARD
-  //get names
-  //get levels
-  //get experience
   app.get('/leaderboard', async (req, res) => {
     try{
       const leaderboard = await db('sessions_table')
-        .select('*')
-        .orderBy('duration', 'desc')
-        console.log(leaderboard)
+        .sum('duration')
+        .groupBy('firebaseId')
       res.status(200).send(leaderboard);
     } catch(err) {
       res.status(500).send(err);
