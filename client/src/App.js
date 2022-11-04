@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Pomodoro from "./components/Pomodoro";
+import MaintenancePage from './components/MaintenancePage';
 import Login from "./components/Login"
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
@@ -18,7 +19,7 @@ function App() {
       <NavBar />
       <BrowserRouter>
         <Routes>
-          <Route path = {'/'} element = {<Login/>}/>
+          <Route path = {'/'} element = {<MaintenancePage/>}/>
           <Route path = {'/register'} element = {<Register/>}/>
           <Route path = {'/dashboard'} element = {<Dashboard/>}/>
           <Route path = {'/reset'} element = {<Reset/>}/>

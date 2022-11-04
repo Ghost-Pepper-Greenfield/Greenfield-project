@@ -1,7 +1,15 @@
 .App {
   text-align: center;
+  display: flexbox;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
   background-color: #CCDBDC;
+  display: flexbox;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
