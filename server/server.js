@@ -3,11 +3,13 @@ const path = require("path");
 const db = require('../db/knex');
 const bodyParser = require('body-parser');
 
+
 function setupServer() {
   const app = express();
 
   app.use(express.static(path.resolve(__dirname, "../client/build")));
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(express.json());
 
   app.get("/", (req, res) => {
@@ -28,26 +30,38 @@ function setupServer() {
   })
 
   //POST a time onto user's log
+  // app.post('/:user/new-session', async (req, res) => {
+  //   const user = req.params.user;
+  //   const sessions = await db('sessions_table')
+  //           .select('*')
+  //           .where('firebaseId', user)
+  //       const payload = req.body
+  //       console.log(req.body);
+  //   try {
+      
+  //       sessions.push(payload);
+  //       res.status(201).send("new entry was successfully added!", sessions)
+  //   } catch(err) {
+  //       res.status(500).send(err);
+  //   }
+  // })
+ //post test
   app.post('/:user/new-session', async (req, res) => {
     const user = req.params.user;
-    const sessions = await db('sessions-table')
-            .select('*')
-            .where('firebaseId', user)
-        const payload = req.body
-        console.log(req.body);
-    try {
-        
-        sessions.push(payload);
-        res.status(201).send("new entry was successfully added!", sessions)
+    try{
+      const payload = req.body;
+      const addSession = await db('sessions_table')
+        .select('*')
+        .where('firebaseId', user)
+        .insert(payload);
+        console.log(addSession);
+      res.status(201).send(payload);
     } catch(err) {
-        res.status(500).send(err);
+      res.status(500).send(err);
     }
-  })
- //post test
-  app.post('/test', async (req, res) => {
-    console.log(req.body)
-    res.send(req.body).status(201);
-  })
+    }
+  )
+
 //get test
 app.get('/test', async (req,res) => {
   const sessions = await db('sessions_table')
