@@ -5,6 +5,8 @@ import { db, auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import run from "../styles/run.gif";
+import idle from "../styles/run.gif";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState(25);
@@ -38,13 +40,13 @@ export default function Pomodoro() {
     setPostObject({
       firebaseId: uid,
       date: new Date(),
-      duration: Math.floor((duration / 60)),
+      duration: Math.floor(duration / 60),
     });
   }
 
   async function saveProgress() {
     setDuration(1);
-    const payLoad = axios.post(`/${uid}/new-session`, postObject);
+    const payLoad = await axios.post(`/new-session`, postObject);
     console.log(payLoad.data);
   }
 
@@ -54,7 +56,7 @@ export default function Pomodoro() {
     fetchUid();
   }, [user, loading]);
 
-  console.log(uid)
+  console.log(uid);
 
   useEffect(() => {
     if (runningTimer) {
@@ -90,6 +92,17 @@ export default function Pomodoro() {
         {displayMessage && (
           <div>Take a break! Your next adventure starts in:</div>
         )}
+        <div className="sprite-container">
+          {runningTimer === false ? (
+            <>
+              <img src={idle}></img>
+            </>
+          ) : (
+            <>
+              <img src={run}></img>
+            </>
+          )}
+        </div>
         <div className="timer">
           {timerMinutes}:{timerSeconds}
         </div>
