@@ -48,7 +48,7 @@ function setupServer() {
     try{
       const leaderboard = await db('sessions_table')
         .select('firebaseId')
-        .sum('duration')
+        .sum('points')
         .groupBy('firebaseId')
       res.status(200).send(leaderboard);
     } catch(err) {
