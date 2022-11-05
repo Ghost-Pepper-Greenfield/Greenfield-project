@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import {Button, Card, Container, Row, Stack} from 'react-bootstrap';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, db, logout } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import LeaderboardLog from "./LeaderboardLog";
 import UserLog from "./UserLog";
@@ -32,19 +32,19 @@ export default function Dashboard({setIsOpen}) {
     if (loading) return;
     if (!user) return navigate("/");
     fetchUserName();
-  }, [user, loading, navigate, fetchUserName]);
+  }, [user, loading, navigate, fetchUserName, setIsOpen]);
 
 
   return (
   <div id="dashboard__wrapper" className="d-flex flex-column justify-content-center align-items-center">
-    <Container>
+    <Container >
     <Row md={2}>
-    <Card>
+    <Card >
     <Card.Body 
       id="card__body" 
       className="d-flex flex-column justify-content-center align-items-center"
     >
-      <h1>Score</h1>
+      <h4>Scoreboard</h4>
 
     <Container>
 
@@ -79,13 +79,8 @@ export default function Dashboard({setIsOpen}) {
 
   </Stack>
   
-
-
-    
-
-      
     </Card.Body>
-    </Card>
+    </Card >
 
     <Card>
     <Card.Body id="card___body" className="d-flex flex-column justify-content-center align-items-center">
@@ -94,14 +89,17 @@ export default function Dashboard({setIsOpen}) {
        are you ready to start a new adventure?
       </p>
 
-      <div class="nes-container with-title is-centered">
-        <p class="title">Menu</p>
-        <ul class="nes-list is-disc">
-          <li><Link to="/study">Start</Link></li>
-          <br></br>
-          <li><Link to="/reset">Reset Password</Link></li>
-          <br></br>
-        </ul>
+      <div className="nes-container with-title is-centered">
+        <p className="title">Menu</p>
+
+   
+          <Link className="nes-btn is-success" to="/study">Start</Link>
+
+        <br></br>
+        <br></br>
+            <Link to="/reset"
+            class="nes-btn is-error">
+              Reset Password</Link>
       </div>
     </Card.Body>
     </Card>

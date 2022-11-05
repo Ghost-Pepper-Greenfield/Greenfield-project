@@ -11,7 +11,7 @@ export default function NavBar({isOpen}) {
     <>
     
         {isOpen === true ? 
-        (<Navbar className="navbar" variant="light">
+        (<Navbar className="nes-container is-rounded" variant="light">
         <Container>
         <Navbar.Brand >
             <img
@@ -30,7 +30,7 @@ export default function NavBar({isOpen}) {
       </Container>
       </Navbar>
       ) : (
-      <Navbar className="navbar" variant="light">
+      <Navbar className="nes-container is-rounded is-dark" variant="dark">
         <Container>
         <Navbar.Brand >
             <img
