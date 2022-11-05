@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/maintenancepage.css'
+import '../styles/MaintenancePage.css'
 import {Card} from 'react-bootstrap';
 
 
