@@ -40,14 +40,14 @@ export default function Pomodoro() {
     setPostObject({
       firebaseId: uid,
       date: new Date(),
-      duration: Math.floor(duration / 60),
+      duration: duration,
+      points: Math.floor(duration / 60),
     });
   }
 
   async function saveProgress() {
     setDuration(1);
-    const payLoad = await axios.post(`/new-session`, postObject);
-    console.log(payLoad.data);
+    return await axios.post(`/new-session`, postObject);
   }
 
   useEffect(() => {
