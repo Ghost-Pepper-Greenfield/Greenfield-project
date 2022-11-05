@@ -25,6 +25,7 @@ function App() {
           <Route path = {'/dashboard'} element = {<Dashboard/>}/>
           <Route path = {'/reset'} element = {<Reset/>}/>
           <Route path = {'/study'} element = {<Study/>}/>
+          <Route path = {'/pomodoro'} element = {<Pomodoro/>}/>
         </Routes>
       </BrowserRouter>
     </div>

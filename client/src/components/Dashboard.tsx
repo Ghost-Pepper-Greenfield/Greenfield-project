@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {Button, Card, Form} from 'react-bootstrap';
+import {Button, Card, Container, Row, Stack} from 'react-bootstrap';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../firebase-config";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import '../styles/dashboard.css'
 
 export default function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -24,18 +25,93 @@ export default function Dashboard() {
   
   useEffect(() => {
     if (loading) return;
-    if (!user) return navigate("/dashboard");
+    if (!user) return navigate("/login");
     fetchUserName();
   }, [user, loading]);
 
+  console.log(user)
+
 
   return (
+  <div id="dashboard__wrapper" className="d-flex flex-column justify-content-center align-items-center">
+    <Container>
+    <Row md={2}>
     <Card>
-    <Card.Body>
-      <h1>Welcome {name}, are you ready for your adventure?</h1>
-      <Button>Start Game</Button>
-      <Button onClick={logout} >Logout</Button>
+    <Card.Body 
+      id="card__body" 
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <h1>Score</h1>
+
+    <Container>
+
+    <p className="nes-balloon nes-pointer">
+  Userlogs and Leaderboard Goes Here
+    </p>
+
+    </Container>
+      <Stack 
+    direction="horizontal"
+    gap={2} 
+      >
+    <Button 
+    variant="secondary"
+    size="sm"
+    className="w-100">
+        Leaderboard
+      </Button>
+
+      <Button  
+      variant="secondary"
+      size="sm"
+      className="w-100">
+        Character Stats</Button>
+
+  </Stack>
+  
+
+
+    
+
+      
     </Card.Body>
     </Card>
+
+    <Card>
+    <Card.Body id="card___body" className="d-flex flex-column justify-content-center align-items-center">
+      <h2>Welcome {name},</h2>
+      <p className="nes-balloon nes-pointer">
+        We've been waiting for you! To start an adventure, click start game.
+      </p>
+      <Stack 
+      gap={2} 
+      direction="horizontal"
+       >
+    <Button 
+    variant="secondary"
+    size="sm"
+    className="w-100">
+        Start Game
+      </Button>
+
+      <Button  
+      variant="secondary"
+      size="sm"
+      onClick={logout} 
+      className="w-100">Logout</Button>
+
+<Button  
+      variant="secondary"
+      size="sm"
+      className="w-100">Reset Password</Button>
+
+  </Stack>
+    </Card.Body>
+    </Card>
+    </Row>
+    </Container>
+
+    
+    </div>
   )
 }

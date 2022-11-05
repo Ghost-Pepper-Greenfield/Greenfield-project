@@ -1,6 +1,6 @@
 import React from 'react'
 import '../styles/maintenancepage.css'
-import {Card, ProgressBar} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 
 
 export default function MaintenancePage() {

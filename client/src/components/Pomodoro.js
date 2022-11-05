@@ -54,6 +54,8 @@ export default function Pomodoro() {
     fetchUid();
   }, [user, loading]);
 
+  console.log(uid)
+
   useEffect(() => {
     if (runningTimer) {
       let timerInterval = setInterval(() => {
