@@ -14,20 +14,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="app">
-      <NavBar />
-      <BrowserRouter>
+      <NavBar isOpen={isOpen}/>
         <Routes>
-          <Route path = {'/'} element = {<MaintenancePage/>}/>
-          <Route path = {'/login'} element = {<Login/>}/>
+          <Route path = {'/'} element = {<Login setIsOpen={setIsOpen}/>}/>
           <Route path = {'/register'} element = {<Register/>}/>
-          <Route path = {'/dashboard'} element = {<Dashboard/>}/>
+          <Route path = {'/dashboard'} element = {<Dashboard setIsOpen={setIsOpen}/>}/>
           <Route path = {'/reset'} element = {<Reset/>}/>
           <Route path = {'/study'} element = {<Study/>}/>
-          <Route path = {'/pomodoro'} element = {<Pomodoro/>}/>
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }

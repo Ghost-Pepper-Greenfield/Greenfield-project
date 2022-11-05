@@ -1,36 +1,50 @@
 import React, { useState } from 'react';
 import "../styles/navbar.css";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import  Navbar  from 'react-bootstrap/Navbar';
-import { LinkContainer } from 'react-router-bootstrap'
+import {Nav, Container, Navbar} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import sword from '../styles/sword.png';
 import { logout } from "../firebase-config";
 
-export default function NavBar() {
-
-  const [isOpen, setIsOpen] = useState(false);
+export default function NavBar({isOpen}) {
 
   return (
-      <>
-      <Navbar className="navbar" variant="light">
+    <>
+    
+        {isOpen === true ? 
+        (<Navbar className="navbar" variant="light">
         <Container>
-        <Navbar.Brand>
+        <Navbar.Brand >
             <img
               alt="Study Hero Logo"
-              src="client/public/rpg-game.png"
+              src={sword}
               width="50"
               height="50"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top me-4"
             />
             Study Hero
           </Navbar.Brand>
           <Nav className="me-1">
-          <Nav.Link className="me-3">Character Profile</Nav.Link>
-          <Nav.Link className="me-3">Start Game</Nav.Link>
-          <Nav.Link  className="me-3" onClick={logout}>Log Out</Nav.Link>
+          <Link className="me-3" to="/dashboard">Character Profile</Link>
+          <Link className="me-3" to="/study">Start Game</Link>
+          <Link className="me-3" onClick={logout}>Log Out</Link>
        </Nav>
       </Container>
       </Navbar>
+      ) : (
+      <Navbar className="navbar" variant="light">
+        <Container>
+        <Navbar.Brand >
+            <img
+              alt="Study Hero Logo"
+              src={sword}
+              width="50"
+              height="50"
+              className="d-inline-block align-top me-4"
+            />
+            Study Hero
+          </Navbar.Brand>
+      </Container>
+      </Navbar>)}
      </>
   )
 }
