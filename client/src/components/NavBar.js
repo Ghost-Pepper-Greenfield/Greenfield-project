@@ -15,13 +15,13 @@ export default function NavBar() {
       <Navbar className="navbar" variant="light">
         <Container>
         <Navbar.Brand>
-            {/* <img
+            <img
               alt="Study Hero Logo"
-              src="../styles/rpg-game.png"
+              src="client/public/rpg-game.png"
               width="50"
               height="50"
               className="d-inline-block align-top"
-            /> */}
+            />
             Study Hero
           </Navbar.Brand>
           <Nav className="me-1">
