@@ -1,14 +1,18 @@
+// eslint-disable-next-line
 import React, { useEffect, useState } from "react";
 import {Button, Card, Container, Row, Stack} from 'react-bootstrap';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { auth, db, logout } from "../firebase-config";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import LeaderboardLog from "./LeaderboardLog";
+import UserLog from "./UserLog";
 import '../styles/dashboard.css'
 
-export default function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
+export default function Dashboard({setIsOpen}) {
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
+  const [board, setBoard] = useState("leaderboard");
   const navigate = useNavigate();
 
   const fetchUserName = async () => {
@@ -24,12 +28,11 @@ export default function Dashboard() {
   };
   
   useEffect(() => {
+    setIsOpen(true);
     if (loading) return;
-    if (!user) return navigate("/login");
+    if (!user) return navigate("/");
     fetchUserName();
-  }, [user, loading]);
-
-  console.log(user)
+  }, [user, loading, navigate, fetchUserName]);
 
 
   return (
@@ -49,6 +52,9 @@ export default function Dashboard() {
   Userlogs and Leaderboard Goes Here
     </p>
 
+    {board === "leaderboard" ?
+     (<LeaderboardLog/>) : (<UserLog/>)}
+
     </Container>
       <Stack 
     direction="horizontal"
@@ -57,14 +63,18 @@ export default function Dashboard() {
     <Button 
     variant="secondary"
     size="sm"
-    className="w-100">
+    className="w-100"
+    onClick={()=>(setBoard("leaderboard"))}
+    >
         Leaderboard
       </Button>
 
       <Button  
       variant="secondary"
       size="sm"
-      className="w-100">
+      className="w-100"
+      onClick={()=>(setBoard("userlog"))}
+      >
         Character Stats</Button>
 
   </Stack>
@@ -79,33 +89,20 @@ export default function Dashboard() {
 
     <Card>
     <Card.Body id="card___body" className="d-flex flex-column justify-content-center align-items-center">
-      <h2>Welcome {name},</h2>
-      <p className="nes-balloon nes-pointer">
-        We've been waiting for you! To start an adventure, click start game.
+      <p className="nes-balloon nes-pointer from-left">
+       Welcome {name},
+       are you ready to start a new adventure?
       </p>
-      <Stack 
-      gap={2} 
-      direction="horizontal"
-       >
-    <Button 
-    variant="secondary"
-    size="sm"
-    className="w-100">
-        Start Game
-      </Button>
 
-      <Button  
-      variant="secondary"
-      size="sm"
-      onClick={logout} 
-      className="w-100">Logout</Button>
-
-<Button  
-      variant="secondary"
-      size="sm"
-      className="w-100">Reset Password</Button>
-
-  </Stack>
+      <div class="nes-container with-title is-centered">
+        <p class="title">Menu</p>
+        <ul class="nes-list is-disc">
+          <li><Link to="/study">Start</Link></li>
+          <br></br>
+          <li><Link to="/reset">Reset Password</Link></li>
+          <br></br>
+        </ul>
+      </div>
     </Card.Body>
     </Card>
     </Row>
