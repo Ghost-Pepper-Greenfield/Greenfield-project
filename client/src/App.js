@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import "./App.css";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import Pomodoro from "./components/Pomodoro";
-import MaintenancePage from './components/MaintenancePage';
+import { Routes, Route} from "react-router-dom";
 import Login from "./components/Login"
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';

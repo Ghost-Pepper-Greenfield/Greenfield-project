@@ -6,13 +6,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css'
 
 
-export default function Login() {
+export default function Login({setIsOpen}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsOpen(false);
     if (loading) {
       // maybe trigger a loading screen
       return;
