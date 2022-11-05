@@ -24,7 +24,7 @@ function setupServer() {
         .select('*')
         .where('firebaseId',user)
       res.send(sessions);
-    }catch(err){
+    } catch(err) {
         res.status(500).send(err);
     }
   })
@@ -32,10 +32,10 @@ function setupServer() {
   //POST a time onto log of all sessions
   app.post('/new-session', async (req, res) => {
     try{
-      const payload = req.body;
+      const hotPancakes = req.body;
       const addSession = await db('sessions_table')
         .select('*')
-        .insert(payload);
+        .insert(hotPancakes);
       res.status(201).send("saved!");
     } catch(err) {
       res.status(500).send(err);
@@ -55,9 +55,6 @@ function setupServer() {
       res.status(500).send(err);
     }
   })
-
-  //add points for every study session.
-  app.patch("/level")
 
   return app;
 }
