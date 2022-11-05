@@ -7,6 +7,7 @@
     "start": "node ./server/index.js",
     "dev": "nodemon ./server/index.js",
     "build": "npm install && cd client && npm install && npm run build",
+    "concurrent": "concurrently \"npm run dev\" \"cd client && npm start\"",
     "make:migration": "knex migrate:make",
     "migrate": "knex migrate:latest",
     "make:seed": "knex seed:make",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "concurrently": "^7.5.0",
     "dotenv": "^16.0.3",
     "nodemon": "^2.0.20"
   }
