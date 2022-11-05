@@ -29,6 +29,8 @@ export default function Dashboard() {
     fetchUserName();
   }, [user, loading]);
 
+  console.log(user)
+
 
   return (
   <div id="dashboard__wrapper" className="d-flex flex-column justify-content-center align-items-center">
