@@ -12,6 +12,14 @@ function setupServer() {
   app.use(bodyParser.json());
   app.use(express.json());
 
+  app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'), function(err) {
+      if (err) {
+        res.status(500).send(err)
+      }
+    })
+  })
+
   app.get("/", (req, res) => {
     res.status(200).send("anything you're looking for in particular? in the meantime, here's a banana🍌");
   });
