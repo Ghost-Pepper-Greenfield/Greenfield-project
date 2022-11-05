@@ -29,25 +29,29 @@ export default function Register() {
   <>
   <div id="login__wrapper" 
   className="d-flex flex-column justify-content-center align-items-center">
-  <Card className="d-flex flex-column justify-content-center align-items-center">
+  <Card className="nes-container is-rounded">
     <Card.Body>
     <h2 className="text-center mb-4">Sign Up</h2>
     <Form>
       <Form.Group id="name">
         <Form.Label> Full Name </Form.Label>
-        <Form.Control type="text"
+        <Form.Control 
+        className = "nes-input is-success"
+        type="text"
         value={name}
         onChange = {(e)=> setName(e.target.value)}
+        placeholder="Kazuki Kagoshima"
         />
       </Form.Group>
       <br></br>
       <Form.Group id="email">
         <Form.Label> Email </Form.Label>
         <Form.Control 
+        className="nes-input is-warning"
         type="text" 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail Address"
+        placeholder="saladisboring@cc28.com"
         />
       </Form.Group>
 
@@ -55,9 +59,10 @@ export default function Register() {
       <Form.Group id="password">
         <Form.Label> Password </Form.Label>
         <Form.Control
+        className="nes-input is-error"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
+        placeholder="something you remember and haven't used"
         />
       </Form.Group>
 

@@ -44,7 +44,7 @@ export default function Dashboard({setIsOpen}) {
       id="card__body" 
       className="d-flex flex-column justify-content-center align-items-center"
     >
-      <h1>Score</h1>
+      <h4>Scoreboard</h4>
 
     <Container>
 
@@ -89,14 +89,17 @@ export default function Dashboard({setIsOpen}) {
        are you ready to start a new adventure?
       </p>
 
-      <div class="nes-container with-title is-centered">
-        <p class="title">Menu</p>
-        <ul class="nes-list is-disc">
-          <li><Link to="/study">Start</Link></li>
-          <br></br>
-          <li><Link to="/reset">Reset Password</Link></li>
-          <br></br>
-        </ul>
+      <div className="nes-container with-title is-centered">
+        <p className="title">Menu</p>
+
+   
+          <Link className="nes-btn is-success" to="/study">Start</Link>
+
+        <br></br>
+        <br></br>
+            <Link to="/reset"
+            class="nes-btn is-error">
+              Reset Password</Link>
       </div>
     </Card.Body>
     </Card>

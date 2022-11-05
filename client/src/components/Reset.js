@@ -23,7 +23,7 @@ export default function Reset() {
       className="d-flex flex-column justify-content-center align-items-center"
     >
 
-    <Card>
+    <Card className="nes-container is-rounded">
       <Card.Body
        className="d-flex flex-column justify-content-center align-items-center">
       <Form.Group
@@ -35,7 +35,7 @@ export default function Reset() {
         type="text"
         value = {email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail Address"
+        placeholder="E-mail"
         />
         <br></br>
          <Button
@@ -47,9 +47,6 @@ export default function Reset() {
       </Form.Group>
       </Card.Body>
     </Card>
-     <div>
-     Don't have an account? <Link to="/register">Register</Link> now.
-   </div>
    </div>
    </>
   )

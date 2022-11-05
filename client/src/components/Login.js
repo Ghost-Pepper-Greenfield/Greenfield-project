@@ -24,12 +24,12 @@ export default function Login({setIsOpen}) {
   return (
   <div id="login__wrapper" 
   className="d-flex flex-column justify-content-center align-items-center">
-  <Card>
+  <Card className="nes-container is-rounded">
 
 <Card.Body
  className="d-flex flex-column justify-content-center align-items-center">
 <h2 className="text-center mb-4">Welcome</h2>
-<p class="nes-balloon nes-pointer">
+<p class="nes-balloon nes-pointer  from-right">
   Are you ready for your adventure?
 </p>
 
@@ -39,6 +39,7 @@ export default function Login({setIsOpen}) {
   <Form.Group id="email">
     <Form.Label> Email </Form.Label>
     <Form.Control 
+    className="nes-input"
     type="email" 
     value={email} 
     onChange= {(e)=> setEmail(e.target.value)} 
@@ -49,6 +50,7 @@ export default function Login({setIsOpen}) {
   <Form.Group id="password">
     <Form.Label> Password </Form.Label>
     <Form.Control
+    className="nes-input"
     value={password}
     onChange = {(e) => setPassword(e.target.value)}
     placeholder="Password"/>
