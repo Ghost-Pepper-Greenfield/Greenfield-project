@@ -38,11 +38,12 @@ export default function Pomodoro() {
     setPostObject({
       firebaseId: uid,
       date: new Date(),
-      duration: duration,
+      duration: Math.floor((duration / 60)),
     });
   }
 
   async function saveProgress() {
+    setDuration(1);
     const payLoad = axios.post(`/${uid}/new-session`, postObject);
     console.log(payLoad.data);
   }
@@ -52,6 +53,8 @@ export default function Pomodoro() {
     if (!user) return navigate("/database");
     fetchUid();
   }, [user, loading]);
+
+  console.log(uid)
 
   useEffect(() => {
     if (runningTimer) {
