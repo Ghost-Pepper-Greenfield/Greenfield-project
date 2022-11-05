@@ -46,7 +46,7 @@ export default function Pomodoro() {
 
   async function saveProgress() {
     setDuration(1);
-    const payLoad = axios.post(`/new-session`, postObject);
+    const payLoad = await axios.post(`/new-session`, postObject);
     console.log(payLoad.data);
   }
 
