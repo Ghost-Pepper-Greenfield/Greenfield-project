@@ -25,7 +25,6 @@ export default function NavBar({isOpen}) {
           </Navbar.Brand>
           <Nav className="me-1">
           <Link className="me-3" to="/dashboard">Character Profile</Link>
-          <Link className="me-3" to="/study">Start Game</Link>
           <Link className="me-3" onClick={logout}>Log Out</Link>
        </Nav>
       </Container>

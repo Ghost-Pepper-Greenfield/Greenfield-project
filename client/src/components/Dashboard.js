@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {Button, Card, Container, Row, Stack} from 'react-bootstrap';
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { auth, db, logout } from "../firebase-config";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import LeaderboardLog from "./LeaderboardLog";
@@ -89,33 +89,20 @@ export default function Dashboard({setIsOpen}) {
 
     <Card>
     <Card.Body id="card___body" className="d-flex flex-column justify-content-center align-items-center">
-      <h2>Welcome {name},</h2>
-      <p className="nes-balloon nes-pointer">
-        We've been waiting for you! To start an adventure, click start game.
+      <p className="nes-balloon nes-pointer from-left">
+       Welcome {name},
+       are you ready to start a new adventure?
       </p>
-      <Stack 
-      gap={2} 
-      direction="horizontal"
-       >
-    <Button 
-    variant="secondary"
-    size="sm"
-    className="w-100">
-        Start Game
-      </Button>
 
-      <Button  
-      variant="secondary"
-      size="sm"
-      onClick={logout} 
-      className="w-100">Logout</Button>
-
-<Button  
-      variant="secondary"
-      size="sm"
-      className="w-100">Reset Password</Button>
-
-  </Stack>
+      <div class="nes-container with-title is-centered">
+        <p class="title">Menu</p>
+        <ul class="nes-list is-disc">
+          <li><Link to="/study">Start</Link></li>
+          <br></br>
+          <li><Link to="/reset">Reset Password</Link></li>
+          <br></br>
+        </ul>
+      </div>
     </Card.Body>
     </Card>
     </Row>
