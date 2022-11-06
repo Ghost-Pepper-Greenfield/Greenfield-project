@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 
-export default function LeaderboardLog({name}) {
+export default function LeaderboardLog() {
   const[ leaderboard, setLeaderboard ] = useState([]);
   
 
@@ -14,12 +14,9 @@ export default function LeaderboardLog({name}) {
   async function getLeaderboard() {
     try{
       const fetchLeaderboard = await axios.get('/leaderboard');
-      console.log(fetchLeaderboard.data)
       setLeaderboard(fetchLeaderboard.data);
-      console.log(leaderboard)
     }catch(err) {
       console.log(err)
-      alert("An error occurred while fetching leaderboard data");
    } 
   }
   
