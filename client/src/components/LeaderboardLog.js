@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { setIndexConfiguration } from "firebase/firestore";
 
 export default function LeaderboardLog() {
-  const[ leaderboard, setLeaderboard ] = useState();
-  // const chart = leaderboard.map( player => {
-  //   return <p>Player:{ player.firebaseId } Level:{ player.sum }</p>
-  // });
+  const[ leaderboard, setLeaderboard ] = useState([]);
+  
 
   useEffect(() => {
     getLeaderboard();
@@ -14,15 +13,21 @@ export default function LeaderboardLog() {
   async function getLeaderboard() {
     try{
       const fetchLeaderboard = await axios.get('/leaderboard');
+      console.log(fetchLeaderboard.data)
       setLeaderboard(fetchLeaderboard.data);
+      console.log(leaderboard)
     }catch(err) {
-    console.log(err)
-    alert("An error occurred while fetching leaderboard data");
+      console.log(err)
+      alert("An error occurred while fetching leaderboard data");
    } 
   }
+  
+  const chart = leaderboard.map( player => { 
+    return <p>{ player.firebaseId } Level: { player.sum }</p>});
+
   return (
     <>
-     <div></div>
+     <div>{chart}</div>
     </>
   )
 }
