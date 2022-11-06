@@ -1,14 +1,17 @@
 import "../styles/Pomodoro.css";
 import React, { useState, useEffect } from "react";
+import { Button, Card, Container, Row, Stack } from "react-bootstrap";
 import axios from "axios";
 import { db, auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
+import run from "../styles/run.gif";
+import idle from "../styles/idle.gif";
 
 export default function Pomodoro() {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(5);
   const [duration, setDuration] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
@@ -38,14 +41,14 @@ export default function Pomodoro() {
     setPostObject({
       firebaseId: uid,
       date: new Date(),
-      duration: Math.floor((duration / 60)),
+      duration: duration,
+      points: Math.floor(duration / 60),
     });
   }
 
   async function saveProgress() {
     setDuration(1);
-    const payLoad = axios.post(`/${uid}/new-session`, postObject);
-    console.log(payLoad.data);
+    return await axios.post(`/new-session`, postObject);
   }
 
   useEffect(() => {
@@ -53,8 +56,6 @@ export default function Pomodoro() {
     if (!user) return navigate("/database");
     fetchUid();
   }, [user, loading]);
-
-  console.log(uid)
 
   useEffect(() => {
     if (runningTimer) {
@@ -85,27 +86,75 @@ export default function Pomodoro() {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
-    <div className="pomodoro">
-      <div className="message">
-        {displayMessage && (
-          <div>Take a break! Your next adventure starts in:</div>
-        )}
-        <div className="timer">
-          {timerMinutes}:{timerSeconds}
-        </div>
-      </div>
-      <div className="timer-button">
-        {runningTimer === false ? (
-          <>
-            <button onClick={startTimer}>Start</button>
-            <button onClick={saveProgress}>Save</button>
-          </>
-        ) : (
-          <>
-            <button onClick={stopTimer}>Pause</button>
-          </>
-        )}
-      </div>
+    <div
+      id="pomodoro__wrapper"
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <Container>
+        <Card.Body id="card__body" className="nes-balloon">
+          {runningTimer === false ? (
+            <>
+              <img className="sprite" src={idle}></img>
+            </>
+          ) : (
+            <>
+              <img className="sprite" src={run}></img>
+            </>
+          )}
+        </Card.Body>
+
+        <Container>
+          {displayMessage && (
+            <p className="nes-balloon">
+              Take a break! Your next adventure starts in...
+            </p>
+          )}
+        </Container>
+
+        <Container>
+          <div id="timer__wrapper">
+            <Card.Body id="card__body" className="nes-balloon">
+              {timerMinutes}:{timerSeconds}
+            </Card.Body>
+          </div>
+        </Container>
+
+        <Container>
+          <div id="button__wrapper">
+            {runningTimer === false ? (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={startTimer}
+                >
+                  Start
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={saveProgress}
+                >
+                  Save
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={stopTimer}
+                >
+                  Pause
+                </Button>
+              </>
+            )}
+          </div>
+        </Container>
+      </Container>
     </div>
   );
 }

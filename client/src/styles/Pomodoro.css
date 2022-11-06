@@ -1,16 +1,24 @@
-* {
-  color: #003249;
-}
-
-.pomodoro {
-  display: flex;
+#pomodoro__wrapper {
+  display: flexbox;
+  flex-direction: inherit;
   align-items: center;
+  justify-content: center;
+  background-color: #6a8eae;
+  height: 100vh;
 }
 
-.timer {
+.sprite {
+  height: 30vh;
+  image-rendering: pixelated;
+}
+
+#timer__wrapper {
+  align-items: center;
+  justify-content: center;
   font-size: 3rem;
 }
 
-.message {
-  font-size: 2rem;
+p {
+  font-size: .9rem;
+  align-self: center;
 }
