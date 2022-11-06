@@ -3,9 +3,9 @@ import axios from "axios";
 
 export default function LeaderboardLog() {
   const[ leaderboard, setLeaderboard ] = useState();
-  const chart = leaderboard.map( player => {
-    return <p>Player:{ player.firebaseId } Level:{ player.sum }</p>
-  });
+  // const chart = leaderboard.map( player => {
+  //   return <p>Player:{ player.firebaseId } Level:{ player.sum }</p>
+  // });
 
   useEffect(() => {
     getLeaderboard();
@@ -22,7 +22,7 @@ export default function LeaderboardLog() {
   }
   return (
     <>
-     <div>{chart}</div>
+     <div></div>
     </>
   )
 }
