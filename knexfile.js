@@ -24,11 +24,11 @@ module.exports = {
 production: {
     client: 'pg',
     connection:  process.env.database_url,
-    searchpath: 'public',
-    pool: {
-        min: 2,
-        max: 10
-    },
+    // searchpath: 'public',
+    // pool: {
+    //     min: 2,
+    //     max: 10
+    // },
     migrations: {
         tableName: 'knex_migrations',
         directory: __dirname + '/db/migrations'
