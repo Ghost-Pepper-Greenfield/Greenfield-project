@@ -21,11 +21,7 @@ export default function LeaderboardLog() {
       alert("An error occurred while fetching leaderboard data");
    } 
   }
-  const order = function() {
-    for(let i=0; i < leaderboard.length; i++) {
-      if(leaderboard[i].sum > leaderboard)
-    }
-  }
+  
   const chart = leaderboard.map( player => { 
     return <p>{ player.firebaseId } Level: { player.sum }</p>});
 
