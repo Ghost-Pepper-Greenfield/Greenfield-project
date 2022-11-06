@@ -19,15 +19,10 @@ function setupServer() {
   //   })
   // })
 
-
   app.post('/test', (req, res) => {
     console.log(req.body)
     res.status(200).send('message received')
   })
-
-  // app.get("/", (req, res) => {
-  //   res.status(200).send("anything you're looking for in particular? in the meantime, here's a banana🍌");
-  // });
 
   app.get('/sessions', async (req,res) => {
     try{
@@ -53,8 +48,6 @@ function setupServer() {
  
   //POST a time onto log of all sessions
   app.post('/new-session', async (req, res) => {
-    // console.log("Test");
-    // res.status(201).send("Success");
    try{
       const payload = req.body;
       // change variable: table
