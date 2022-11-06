@@ -6,7 +6,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function UserLog() {
-  const [data, setData] = useState(null);
+  const [logs, setLogs] = useState([]);
   const [uid, setUid] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
@@ -23,16 +23,18 @@ export default function UserLog() {
     }
   };
 
-  const getData = async () => {
-    await axios
-      .get(`/${uid}/sessions`)
-      .then((res) => {
-        setData(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  const getUserLogs = async () => {
+    try {
+      const fetchedLogs = await axios.get(`/${uid}/sessions`);
+      setLogs(fetchedLogs.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  const table = logs.map(log => {
+    return <p>Date: {log.date} Duration: {log.duration} Points: {log.points}</p>
+  })
 
   useEffect(() => {
     if (loading) return;
@@ -41,9 +43,8 @@ export default function UserLog() {
   }, [user, loading]);
 
   useEffect(() => {
-    getData();
+    getUserLogs();
   });
 
-  // Test to see if getData / axios get is successful
-  console.log(data);
+  return <div>{table}</div>;
 }
