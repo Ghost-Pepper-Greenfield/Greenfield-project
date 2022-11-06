@@ -1,4 +1,4 @@
-import "../styles/Pomodoro.css";
+import "../styles/pomodoro.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { db, auth } from "../firebase-config";
@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
-import idle from "../styles/run.gif";
+import idle from "../styles/idle.gif";
 
 export default function Pomodoro() {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(5);
   const [duration, setDuration] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
@@ -56,8 +56,6 @@ export default function Pomodoro() {
     fetchUid();
   }, [user, loading]);
 
-  console.log(uid);
-
   useEffect(() => {
     if (runningTimer) {
       let timerInterval = setInterval(() => {
@@ -87,35 +85,41 @@ export default function Pomodoro() {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
-    <div className="pomodoro">
-      <div className="message">
-        {displayMessage && (
-          <div>Take a break! Your next adventure starts in:</div>
-        )}
-        <div className="sprite-container">
-          {runningTimer === false ? (
-            <>
-              <img src={idle}></img>
-            </>
-          ) : (
-            <>
-              <img src={run}></img>
-            </>
-          )}
-        </div>
-        <div className="timer">
-          {timerMinutes}:{timerSeconds}
-        </div>
-      </div>
-      <div className="timer-button">
+    <div id="pomodoro__wrapper">
+      <div id="sprite__wrapper">
         {runningTimer === false ? (
           <>
-            <button onClick={startTimer}>Start</button>
-            <button onClick={saveProgress}>Save</button>
+            <img className="sprite" src={idle}></img>
           </>
         ) : (
           <>
-            <button onClick={stopTimer}>Pause</button>
+            <img className="sprite" src={run}></img>
+          </>
+        )}
+      </div>
+      <div id="message__wrapper">
+        {displayMessage && (
+          <div>Take a break! Your next adventure starts in:</div>
+        )}
+        <div id="timer__wrapper">
+          {timerMinutes}:{timerSeconds}
+        </div>
+      </div>
+      <div>
+        {runningTimer === false ? (
+          <>
+            <button className="w-100" onClick={startTimer}>
+              Start
+            </button>
+            <button className="w-100" onClick={saveProgress}>
+              Save
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="w-100" onClick={stopTimer}>
+              Pause
+            </button>
           </>
         )}
       </div>
