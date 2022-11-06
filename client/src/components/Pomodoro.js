@@ -1,4 +1,4 @@
-import "../styles/Pomodoro.css";
+import "../styles/pomodoro.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { db, auth } from "../firebase-config";
