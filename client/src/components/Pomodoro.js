@@ -1,5 +1,6 @@
 import "../styles/Pomodoro.css";
 import React, { useState, useEffect } from "react";
+import { Button, Card, Container, Row, Stack } from "react-bootstrap";
 import axios from "axios";
 import { db, auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
@@ -85,44 +86,75 @@ export default function Pomodoro() {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
-    <div id="pomodoro__wrapper">
-      <div id="sprite__wrapper">
-        {runningTimer === false ? (
-          <>
-            <img className="sprite" src={idle}></img>
-          </>
-        ) : (
-          <>
-            <img className="sprite" src={run}></img>
-          </>
-        )}
-      </div>
-      <div id="message__wrapper">
-        {displayMessage && (
-          <div>Take a break! Your next adventure starts in:</div>
-        )}
-        <div id="timer__wrapper">
-          {timerMinutes}:{timerSeconds}
-        </div>
-      </div>
-      <div>
-        {runningTimer === false ? (
-          <>
-            <button className="w-100" onClick={startTimer}>
-              Start
-            </button>
-            <button className="w-100" onClick={saveProgress}>
-              Save
-            </button>
-          </>
-        ) : (
-          <>
-            <button className="w-100" onClick={stopTimer}>
-              Pause
-            </button>
-          </>
-        )}
-      </div>
+    <div
+      id="pomodoro__wrapper"
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <Container>
+        <Card.Body id="card__body" className="nes-balloon">
+          {runningTimer === false ? (
+            <>
+              <img className="sprite" src={idle}></img>
+            </>
+          ) : (
+            <>
+              <img className="sprite" src={run}></img>
+            </>
+          )}
+        </Card.Body>
+
+        <Container>
+          {displayMessage && (
+            <p className="nes-balloon">
+              Take a break! Your next adventure starts in...
+            </p>
+          )}
+        </Container>
+
+        <Container>
+          <div id="timer__wrapper">
+            <Card.Body id="card__body" className="nes-balloon">
+              {timerMinutes}:{timerSeconds}
+            </Card.Body>
+          </div>
+        </Container>
+
+        <Container>
+          <div id="button__wrapper">
+            {runningTimer === false ? (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={startTimer}
+                >
+                  Start
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={saveProgress}
+                >
+                  Save
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={stopTimer}
+                >
+                  Pause
+                </Button>
+              </>
+            )}
+          </div>
+        </Container>
+      </Container>
     </div>
   );
 }

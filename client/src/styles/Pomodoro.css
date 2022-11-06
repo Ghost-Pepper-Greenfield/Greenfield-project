@@ -1,11 +1,10 @@
 #pomodoro__wrapper {
-  padding: 0;
-  margin: 0;
-  list-style: none;
   display: flexbox;
+  flex-direction: inherit;
   align-items: center;
   justify-content: center;
-  width: 60vh;
+  background-color: #6a8eae;
+  height: 100vh;
 }
 
 .sprite {
@@ -14,11 +13,12 @@
 }
 
 #timer__wrapper {
-  font-size: 4rem;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
 }
 
-#message__wrapper {
-  font-size: 1rem;
-  text-align: center;
+p {
+  font-size: .9rem;
+  align-self: center;
 }
