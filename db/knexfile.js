@@ -4,9 +4,9 @@ module.exports = {
     development: {
         client: 'pg',
         connection: {
-            host: process.env.host,
-            user: process.env.user,
-            database: process.env.database,
+            password: "helloworld",
+            user: "postgres",
+            database: "greenfield",
         },
         searchpath: 'public',
         pool: {
