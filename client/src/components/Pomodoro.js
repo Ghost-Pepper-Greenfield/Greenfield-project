@@ -8,6 +8,7 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
 import idle from "../styles/idle.gif";
+import dance from "../styles/dance.gif";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState(0);
@@ -15,6 +16,7 @@ export default function Pomodoro() {
   const [duration, setDuration] = useState(1);
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
   const [postObject, setPostObject] = useState({});
   const [uid, setUid] = useState("");
   const [user, loading, error] = useAuthState(auth);
@@ -92,25 +94,32 @@ export default function Pomodoro() {
     >
       <Container>
         <Card.Body id="card__body" className="nes-balloon">
-          {runningTimer ? (
-            displayMessage ? (
+          { (celebrate === false) ? (
+            runningTimer ? (
+              displayMessage ? (
+                <>
+                  <img className="sprite" src={idle}></img>
+                </>
+              ) : (
+                <>
+                  <img className="sprite" src={run}></img>
+                </>
+              )
+            ) : displayMessage ? (
               <>
                 <img className="sprite" src={idle}></img>
               </>
             ) : (
               <>
-                <img className="sprite" src={run}></img>
+                <img className="sprite" src={idle}></img>
               </>
             )
-          ) : displayMessage ? (
-            <>
-              <img className="sprite" src={idle}></img>
-            </>
           ) : (
-            <>
-              <img className="sprite" src={idle}></img>
-            </>
-          )}
+                <>
+                  <img className="sprite" src={dance}></img>
+                </>
+          )
+        }
         </Card.Body>
 
         <Container>
@@ -159,6 +168,17 @@ export default function Pomodoro() {
                   onClick={stopTimer}
                 >
                   Pause
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={() => {
+                    setCelebrate(true);
+                    setTimeout(() => setCelebrate(false), 5000);
+                  }}
+                >
+                  Celebrate
                 </Button>
               </>
             )}
