@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
 import idle from "../styles/idle.gif";
 import dance from "../styles/dance.gif";
+import stand from "../styles/stand.gif";
 
 export default function Pomodoro() {
   const [minutes, setMinutes] = useState(0);
@@ -17,6 +18,7 @@ export default function Pomodoro() {
   const [displayMessage, setDisplayMessage] = useState(false);
   const [runningTimer, setRunningTimer] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
+  const [pause, setPause] = useState(false);
   const [postObject, setPostObject] = useState({});
   const [uid, setUid] = useState("");
   const [user, loading, error] = useAuthState(auth);
@@ -94,7 +96,8 @@ export default function Pomodoro() {
     >
       <Container>
         <Card.Body id="card__body" className="nes-balloon">
-          { (celebrate === false) ? (
+          { pause === false ? (
+          celebrate === false ? (
             runningTimer ? (
               displayMessage ? (
                 <>
@@ -118,6 +121,11 @@ export default function Pomodoro() {
                 <>
                   <img className="sprite" src={dance}></img>
                 </>
+          )
+          ) : (
+            <>
+              <img className="sprite" src={stand}></img>
+            </>
           )
         }
         </Card.Body>
@@ -146,7 +154,11 @@ export default function Pomodoro() {
                   variant="secondary"
                   size="sm"
                   className="w-100"
-                  onClick={startTimer}
+                  onClick={() => {
+                    startTimer();
+                    setPause(false);
+                  }
+                }
                 >
                   Start
                 </Button>
@@ -165,7 +177,11 @@ export default function Pomodoro() {
                   variant="secondary"
                   size="sm"
                   className="w-100"
-                  onClick={stopTimer}
+                  onClick={() => {
+                    stopTimer();
+                    setPause(true);
+                    }
+                  }
                 >
                   Pause
                 </Button>
