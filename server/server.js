@@ -44,7 +44,7 @@ function setupServer() {
 			const sessions = await db("sessions_table")
 				.select("*")
 				.where("firebaseId", user);
-			res.send(sessions);
+			res.status(200).send(sessions);
 		} catch (err) {
 			res.status(500).send(err);
 		}
