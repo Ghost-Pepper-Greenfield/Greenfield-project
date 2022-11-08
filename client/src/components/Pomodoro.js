@@ -92,13 +92,23 @@ export default function Pomodoro() {
     >
       <Container>
         <Card.Body id="card__body" className="nes-balloon">
-          {runningTimer === false ? (
+          {runningTimer ? (
+            displayMessage ? (
+              <>
+                <img className="sprite" src={idle}></img>
+              </>
+            ) : (
+              <>
+                <img className="sprite" src={run}></img>
+              </>
+            )
+          ) : displayMessage ? (
             <>
               <img className="sprite" src={idle}></img>
             </>
           ) : (
             <>
-              <img className="sprite" src={run}></img>
+              <img className="sprite" src={idle}></img>
             </>
           )}
         </Card.Body>
