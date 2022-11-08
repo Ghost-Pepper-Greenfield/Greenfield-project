@@ -55,6 +55,7 @@ function setupServer() {
 		try {
 			console.log("request received");
 			const payload = req.body;
+			console.log(payload);
 			// change variable: table
 			const table = await db("sessions_table")
 				.select("*") //may not be needed
