@@ -39,11 +39,12 @@ function setupServer() {
 	//will get all sessions from the corresponding firebase ID string
 	app.get("/:user/sessions", async (req, res) => {
 		const user = req.params.user;
+		console.log("userID received: ", user);
 		try {
 			const sessions = await db("sessions_table")
 				.select("*")
 				.where("firebaseId", user);
-			res.send(sessions);
+			res.status(200).send(sessions);
 		} catch (err) {
 			res.status(500).send(err);
 		}
@@ -52,7 +53,9 @@ function setupServer() {
 	//POST a time onto log of all sessions
 	app.post("/new-session", async (req, res) => {
 		try {
+			console.log("request received");
 			const payload = req.body;
+			console.log(payload);
 			// change variable: table
 			const table = await db("sessions_table")
 				.select("*") //may not be needed
@@ -72,7 +75,6 @@ function setupServer() {
 				.sum("points")
 				.groupBy("name");
 			res.status(200).send(leaderboard);
-			console.log(leaderboard);
 		} catch (err) {
 			res.status(500).send(err);
 		}

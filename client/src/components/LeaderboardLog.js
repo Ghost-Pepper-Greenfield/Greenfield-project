@@ -5,7 +5,6 @@ export default function LeaderboardLog() {
 	const [leaderboard, setLeaderboard] = useState([]);
 
 	useEffect(() => {
-		console.log("triggered leaderboard");
 		getLeaderboard();
 	}, []);
 
@@ -13,7 +12,6 @@ export default function LeaderboardLog() {
 		try {
 			const fetchLeaderboard = await axios.get("/leaderboard");
 			setLeaderboard(fetchLeaderboard.data);
-			console.log(fetchLeaderboard);
 		} catch (err) {
 			console.log(err);
 		}
@@ -33,7 +31,6 @@ export default function LeaderboardLog() {
 	};
 
 	const chart = sortPlayers(leaderboard).map((player) => {
-		console.log(player);
 		return (
 			<p>
 				{player.name} Level: {player.sum}
