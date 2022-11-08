@@ -24,21 +24,21 @@ export default function Pomodoro() {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const fetchUid = async () => {
-    try {
-      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-      const doc = await getDocs(q);
-      const data = doc.docs[0].data();
-      setUid(data.uid);
-    } catch (err) {
-      console.error(err);
-      alert("An error occured while fetching user data");
-    }
-  };
+	const fetchUid = async () => {
+		try {
+			const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+			const doc = await getDocs(q);
+			const data = doc.docs[0].data();
+			setUid(data.uid);
+		} catch (err) {
+			console.error(err);
+			alert("An error occured while fetching user data");
+		}
+	};
 
-  function startTimer() {
-    setRunningTimer(true);
-  }
+	function startTimer() {
+		setRunningTimer(true);
+	}
 
   function stopTimer() {
     setRunningTimer(false);
@@ -50,44 +50,44 @@ export default function Pomodoro() {
     });
   }
 
-  async function saveProgress() {
-    setDuration(1);
-    return await axios.post(`/new-session`, postObject);
-  }
+	async function saveProgress() {
+		setDuration(1);
+		return await axios.post(`/new-session`, postObject);
+	}
 
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/database");
-    fetchUid();
-  }, [user, loading]);
+	useEffect(() => {
+		if (loading) return;
+		if (!user) return navigate("/database");
+		fetchUid();
+	}, [user, loading]);
 
-  useEffect(() => {
-    if (runningTimer) {
-      let timerInterval = setInterval(() => {
-        clearInterval(timerInterval);
+	useEffect(() => {
+		if (runningTimer) {
+			let timerInterval = setInterval(() => {
+				clearInterval(timerInterval);
 
-        if (seconds === 0) {
-          if (minutes !== 0) {
-            setSeconds(59);
-            setMinutes(minutes - 1);
-          } else {
-            let minutes = displayMessage ? 24 : 4;
-            let seconds = 59;
+				if (seconds === 0) {
+					if (minutes !== 0) {
+						setSeconds(59);
+						setMinutes(minutes - 1);
+					} else {
+						let minutes = displayMessage ? 24 : 4;
+						let seconds = 59;
 
-            setSeconds(seconds);
-            setMinutes(minutes);
-            setDisplayMessage(!displayMessage);
-          }
-        } else {
-          setSeconds(seconds - 1);
-          setDuration(duration + 1);
-        }
-      }, 1000);
-    }
-  }, [seconds, runningTimer]);
+						setSeconds(seconds);
+						setMinutes(minutes);
+						setDisplayMessage(!displayMessage);
+					}
+				} else {
+					setSeconds(seconds - 1);
+					setDuration(duration + 1);
+				}
+			}, 1000);
+		}
+	}, [seconds, runningTimer]);
 
-  const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
+	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
+	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
     <div
@@ -130,21 +130,21 @@ export default function Pomodoro() {
         }
         </Card.Body>
 
-        <Container>
-          {displayMessage && (
-            <p className="nes-balloon">
-              Take a break! Your next adventure starts in...
-            </p>
-          )}
-        </Container>
+				<Container>
+					{displayMessage && (
+						<p className="nes-balloon">
+							Take a break! Your next adventure starts in...
+						</p>
+					)}
+				</Container>
 
-        <Container>
-          <div id="timer__wrapper">
-            <Card.Body id="card__body" className="nes-balloon">
-              {timerMinutes}:{timerSeconds}
-            </Card.Body>
-          </div>
-        </Container>
+				<Container>
+					<div id="timer__wrapper">
+						<Card.Body id="card__body" className="nes-balloon">
+							{timerMinutes}:{timerSeconds}
+						</Card.Body>
+					</div>
+				</Container>
 
         <Container>
           <div id="button__wrapper">
