@@ -42,16 +42,15 @@ export default function Pomodoro() {
 		setRunningTimer(true);
 	}
 
-	function stopTimer() {
-		setRunningTimer(false);
-		setPostObject({
-			firebaseId: uid,
-			name: uname,
-			date: new Date(),
-			duration: duration,
-			points: Math.floor(duration / 60),
-		});
-	}
+  function stopTimer() {
+    setRunningTimer(false);
+    setPostObject({
+      firebaseId: uid,
+      date: new Date(),
+      duration: (new Date(duration * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0],
+      points: Math.floor(duration / 60),
+    });
+  }
 
 	async function saveProgress() {
 		setDuration(1);
@@ -92,46 +91,46 @@ export default function Pomodoro() {
 	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
 	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-	return (
-		<div
-			id="pomodoro__wrapper"
-			className="d-flex flex-column justify-content-center align-items-center"
-		>
-			<Container>
-				<Card.Body id="card__body" className="nes-balloon">
-					{pause === false ? (
-						celebrate === false ? (
-							runningTimer ? (
-								displayMessage ? (
-									<>
-										<img className="sprite" src={idle}></img>
-									</>
-								) : (
-									<>
-										<img className="sprite" src={run}></img>
-									</>
-								)
-							) : displayMessage ? (
-								<>
-									<img className="sprite" src={idle}></img>
-								</>
-							) : (
-								<>
-									<img className="sprite" src={idle}></img>
-								</>
-							)
-						) : (
-							<>
-								<img className="sprite" src={dance}></img>
-							</>
-						)
-					) : (
-						<>
-							<img className="sprite" src={stand}></img>
-						</>
-					)}
-				</Card.Body>
-
+  return (
+    <div
+      id="pomodoro__wrapper"
+      className="d-flex flex-column justify-content-center align-items-center"
+    >
+      <Container>
+        <Card.Body id="card__body" className="nes-balloon">
+          { pause === false ? (
+          celebrate === false ? (
+            runningTimer ? (
+              displayMessage ? (
+                <>
+                  <img className="sprite" src={idle}></img>
+                </>
+              ) : (
+                <>
+                  <img className="sprite" src={run}></img>
+                </>
+              )
+            ) : displayMessage ? (
+              <>
+                <img className="sprite" src={idle}></img>
+              </>
+            ) : (
+              <>
+                <img className="sprite" src={idle}></img>
+              </>
+            )
+          ) : (
+                <>
+                  <img className="sprite" src={dance}></img>
+                </>
+          )
+          ) : (
+            <>
+              <img className="sprite" src={stand}></img>
+            </>
+          )
+        }
+        </Card.Body>
 				<Container>
 					{displayMessage && (
 						<p className="nes-balloon">
@@ -148,59 +147,61 @@ export default function Pomodoro() {
 					</div>
 				</Container>
 
-				<Container>
-					<div id="button__wrapper">
-						{runningTimer === false ? (
-							<>
-								<Button
-									variant="secondary"
-									size="sm"
-									className="w-100"
-									onClick={() => {
-										startTimer();
-										setPause(false);
-									}}
-								>
-									Start
-								</Button>
-								<Button
-									variant="secondary"
-									size="sm"
-									className="w-100"
-									onClick={saveProgress}
-								>
-									Save
-								</Button>
-							</>
-						) : (
-							<>
-								<Button
-									variant="secondary"
-									size="sm"
-									className="w-100"
-									onClick={() => {
-										stopTimer();
-										setPause(true);
-									}}
-								>
-									Pause
-								</Button>
-								<Button
-									variant="secondary"
-									size="sm"
-									className="w-100"
-									onClick={() => {
-										setCelebrate(true);
-										setTimeout(() => setCelebrate(false), 5000);
-									}}
-								>
-									Celebrate
-								</Button>
-							</>
-						)}
-					</div>
-				</Container>
-			</Container>
-		</div>
-	);
+        <Container>
+          <div id="button__wrapper">
+            {runningTimer === false ? (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={() => {
+                    startTimer();
+                    setPause(false);
+                  }
+                }
+                >
+                  Start
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={saveProgress}
+                >
+                  Save
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={() => {
+                    stopTimer();
+                    setPause(true);
+                    }
+                  }
+                >
+                  Pause
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-100"
+                  onClick={() => {
+                    setCelebrate(true);
+                    setTimeout(() => setCelebrate(false), 5000);
+                  }}
+                >
+                  Celebrate
+                </Button>
+              </>
+            )}
+          </div>
+        </Container>
+      </Container>
+    </div>
+  );
 }
