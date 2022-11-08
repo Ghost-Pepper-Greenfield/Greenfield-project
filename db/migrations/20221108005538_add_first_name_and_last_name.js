@@ -4,7 +4,7 @@
  */
 exports.up = async function (knex) {
 	return await knex.schema.alterTable("sessions_table", (table) => {
-		table.integer("points");
+		table.string("name");
 	});
 };
 
@@ -14,6 +14,6 @@ exports.up = async function (knex) {
  */
 exports.down = async function (knex) {
 	await knex.schema.table("sessions_table", (table) => {
-		table.dropColumn("points");
+		table.dropColumn("name");
 	});
 };
