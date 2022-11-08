@@ -49,7 +49,7 @@ export default function UserLog() {
 
 	useEffect(() => {
 		getUserLogs();
-	}, []);
+	}, [uid]);
 
 	return <div>{table}</div>;
 }
