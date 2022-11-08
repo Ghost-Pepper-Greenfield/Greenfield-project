@@ -18,10 +18,10 @@ function setupServer() {
 	//   })
 	// })
 
-	app.get("/", (req, res) => {
-		console.log("received");
-		res.status(200).send("received");
-	});
+	// app.get("/", (req, res) => {
+	// 	console.log("received");
+	// 	res.status(200).send("received");
+	// });
 
 	app.post("/test", (req, res) => {
 		console.log(req.body);
@@ -66,14 +66,13 @@ function setupServer() {
 
 	//LEADERBOARD
 	app.get("/leaderboard", async (req, res) => {
-		console.log("received request");
 		try {
 			const leaderboard = await db("sessions_table")
 				.select("name")
 				.sum("points")
 				.groupBy("name");
-			console.log(leaderboard);
 			res.status(200).send(leaderboard);
+			console.log(leaderboard);
 		} catch (err) {
 			res.status(500).send(err);
 		}
