@@ -74,7 +74,7 @@ export default function Pomodoro() {
 						setSeconds(59);
 						setMinutes(minutes - 1);
 					} else {
-						let minutes = displayMessage ? 24 : 4;
+						let minutes = displayMessage ? 24 : 1;
 						let seconds = 59;
 
 						setSeconds(seconds);
@@ -91,6 +91,7 @@ export default function Pomodoro() {
 
 	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
 	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
+  const timer = ((minutes * 60) + seconds);
 
   return (
     <div
@@ -98,13 +99,15 @@ export default function Pomodoro() {
       className="d-flex flex-column justify-content-center align-items-center"
     >
       <Container>
+      { displayMessage ? <progress class="nes-progress is-pattern" value={120 - timer} max="120"></progress> :
+        <progress class="nes-progress is-pattern" value={5 - timer} max="5"></progress> }
         <Card.Body id="card__body" className="nes-balloon">
           { pause === false ? (
           celebrate === false ? (
             runningTimer ? (
               displayMessage ? (
                 <>
-                  <img className="sprite" src={idle}></img>
+                  <img className="sprite" src={pant}></img>
                 </>
               ) : (
                 <>
@@ -113,7 +116,7 @@ export default function Pomodoro() {
               )
             ) : displayMessage ? (
               <>
-                <img className="sprite" src={idle}></img>
+                <img className="sprite" src={pant}></img>
               </>
             ) : (
               <>
