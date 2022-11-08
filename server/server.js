@@ -66,11 +66,13 @@ function setupServer() {
 
 	//LEADERBOARD
 	app.get("/leaderboard", async (req, res) => {
+		console.log("received request");
 		try {
 			const leaderboard = await db("sessions_table")
-				.select("firebaseId")
+				.select("name")
 				.sum("points")
-				.groupBy("firebaseId");
+				.groupBy("name");
+			console.log(leaderboard);
 			res.status(200).send(leaderboard);
 		} catch (err) {
 			res.status(500).send(err);
