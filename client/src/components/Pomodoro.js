@@ -45,7 +45,7 @@ export default function Pomodoro() {
     setPostObject({
       firebaseId: uid,
       date: new Date(),
-      duration: duration,
+      duration: (new Date(duration * 1000)).toUTCString().match(/(\d\d:\d\d:\d\d)/)[0],
       points: Math.floor(duration / 60),
     });
   }
