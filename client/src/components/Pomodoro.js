@@ -8,6 +8,8 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
 import idle from "../styles/idle.gif";
+import dance from "../styles/dance.gif";
+import stand from "../styles/stand.gif";
 
 export default function Pomodoro() {
 	const [minutes, setMinutes] = useState(0);
@@ -15,8 +17,11 @@ export default function Pomodoro() {
 	const [duration, setDuration] = useState(1);
 	const [displayMessage, setDisplayMessage] = useState(false);
 	const [runningTimer, setRunningTimer] = useState(false);
+	const [celebrate, setCelebrate] = useState(false);
+	const [pause, setPause] = useState(false);
 	const [postObject, setPostObject] = useState({});
 	const [uid, setUid] = useState("");
+	const [uname, setName] = useState("");
 	const [user, loading, error] = useAuthState(auth);
 	const navigate = useNavigate();
 
@@ -26,6 +31,7 @@ export default function Pomodoro() {
 			const doc = await getDocs(q);
 			const data = doc.docs[0].data();
 			setUid(data.uid);
+			setName(data.name);
 		} catch (err) {
 			console.error(err);
 			alert("An error occured while fetching user data");
@@ -40,6 +46,7 @@ export default function Pomodoro() {
 		setRunningTimer(false);
 		setPostObject({
 			firebaseId: uid,
+			name: uname,
 			date: new Date(),
 			duration: duration,
 			points: Math.floor(duration / 60),
@@ -92,13 +99,35 @@ export default function Pomodoro() {
 		>
 			<Container>
 				<Card.Body id="card__body" className="nes-balloon">
-					{runningTimer === false ? (
-						<>
-							<img className="sprite" src={idle}></img>
-						</>
+					{pause === false ? (
+						celebrate === false ? (
+							runningTimer ? (
+								displayMessage ? (
+									<>
+										<img className="sprite" src={idle}></img>
+									</>
+								) : (
+									<>
+										<img className="sprite" src={run}></img>
+									</>
+								)
+							) : displayMessage ? (
+								<>
+									<img className="sprite" src={idle}></img>
+								</>
+							) : (
+								<>
+									<img className="sprite" src={idle}></img>
+								</>
+							)
+						) : (
+							<>
+								<img className="sprite" src={dance}></img>
+							</>
+						)
 					) : (
 						<>
-							<img className="sprite" src={run}></img>
+							<img className="sprite" src={stand}></img>
 						</>
 					)}
 				</Card.Body>
@@ -127,7 +156,10 @@ export default function Pomodoro() {
 									variant="secondary"
 									size="sm"
 									className="w-100"
-									onClick={startTimer}
+									onClick={() => {
+										startTimer();
+										setPause(false);
+									}}
 								>
 									Start
 								</Button>
@@ -146,9 +178,23 @@ export default function Pomodoro() {
 									variant="secondary"
 									size="sm"
 									className="w-100"
-									onClick={stopTimer}
+									onClick={() => {
+										stopTimer();
+										setPause(true);
+									}}
 								>
 									Pause
+								</Button>
+								<Button
+									variant="secondary"
+									size="sm"
+									className="w-100"
+									onClick={() => {
+										setCelebrate(true);
+										setTimeout(() => setCelebrate(false), 5000);
+									}}
+								>
+									Celebrate
 								</Button>
 							</>
 						)}
