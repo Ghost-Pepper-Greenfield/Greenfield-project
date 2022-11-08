@@ -5,4 +5,4 @@ const knexConfig = require('../knexfile');
 
 
 
-module.exports = knex(process.env.PORT ? config.production : config.development);
+module.exports = knex(process.env.database_url ? knexConfig.production : knexConfig.development);
