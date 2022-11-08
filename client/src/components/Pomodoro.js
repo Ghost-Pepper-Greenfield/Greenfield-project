@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
 import idle from "../styles/idle.gif";
 import dance from "../styles/dance.gif";
+import pant from "../styles/pant.gif";
 import stand from "../styles/stand.gif";
 
 export default function Pomodoro() {
@@ -126,7 +127,7 @@ export default function Pomodoro() {
           )
           ) : (
             <>
-              <img className="sprite" src={stand}></img>
+              <img className="sprite" src={pant}></img>
             </>
           )
         }
