@@ -12,17 +12,18 @@ import dance from "../styles/dance.gif";
 import stand from "../styles/stand.gif";
 
 export default function Pomodoro() {
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
-  const [duration, setDuration] = useState(1);
-  const [displayMessage, setDisplayMessage] = useState(false);
-  const [runningTimer, setRunningTimer] = useState(false);
-  const [celebrate, setCelebrate] = useState(false);
-  const [pause, setPause] = useState(false);
-  const [postObject, setPostObject] = useState({});
-  const [uid, setUid] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
+	const [minutes, setMinutes] = useState(0);
+	const [seconds, setSeconds] = useState(5);
+	const [duration, setDuration] = useState(1);
+	const [displayMessage, setDisplayMessage] = useState(false);
+	const [runningTimer, setRunningTimer] = useState(false);
+	const [celebrate, setCelebrate] = useState(false);
+	const [pause, setPause] = useState(false);
+	const [postObject, setPostObject] = useState({});
+	const [uid, setUid] = useState("");
+	const [uname, setName] = useState("");
+	const [user, loading, error] = useAuthState(auth);
+	const navigate = useNavigate();
 
 	const fetchUid = async () => {
 		try {
@@ -30,6 +31,7 @@ export default function Pomodoro() {
 			const doc = await getDocs(q);
 			const data = doc.docs[0].data();
 			setUid(data.uid);
+			setName(data.name);
 		} catch (err) {
 			console.error(err);
 			alert("An error occured while fetching user data");
@@ -129,7 +131,6 @@ export default function Pomodoro() {
           )
         }
         </Card.Body>
-
 				<Container>
 					{displayMessage && (
 						<p className="nes-balloon">
