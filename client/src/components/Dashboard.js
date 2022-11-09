@@ -46,15 +46,27 @@ export default function Dashboard({ setIsOpen }) {
 							id="card__body"
 							className="d-flex flex-column justify-content-center align-items-center"
 						>
-							<h4>Scoreboard</h4>
-
-							<Container>
-								<p className="nes-balloon nes-pointer">
+							{/* <p className="nes-balloon nes-pointer">
 									Userlogs and Leaderboard Goes Here
-								</p>
+								</p> */}
 
-								{board === "leaderboard" ? <LeaderboardLog /> : <UserLog />}
-							</Container>
+							{board === "leaderboard" ? (
+								<>
+									<h3>Leaderboard</h3>
+									<Container>
+										<LeaderboardLog />
+									</Container>
+								</>
+							) : (
+								<>
+									<h3>Character Stats</h3>
+									<Container>
+										<UserLog />
+									</Container>
+								</>
+							)}
+							<p></p>
+
 							<Stack direction="horizontal" gap={2}>
 								<Button
 									variant="secondary"
