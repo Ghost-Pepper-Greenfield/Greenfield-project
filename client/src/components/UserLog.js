@@ -25,7 +25,8 @@ export default function UserLog() {
 
 	const getUserLogs = async () => {
 		try {
-			console.log("🌏 - fetch from userlogs");
+			console.log(uid);
+			console.log("🌏");
 			const fetchedLogs = await axios.get(`/${uid}/sessions`);
 			setLogs(fetchedLogs.data);
 		} catch (err) {
@@ -48,7 +49,7 @@ export default function UserLog() {
 	}, [user, loading]);
 
 	useEffect(() => {
-		getUserLogs();
+		if (uid) getUserLogs();
 	}, [uid]);
 
 	return <div>{table}</div>;
