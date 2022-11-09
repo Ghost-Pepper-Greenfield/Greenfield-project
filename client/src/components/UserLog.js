@@ -25,7 +25,7 @@ export default function UserLog() {
 
 	const getUserLogs = async () => {
 		try {
-			console.log(uid);
+			console.log("🌏 - fetch from userlogs");
 			const fetchedLogs = await axios.get(`/${uid}/sessions`);
 			setLogs(fetchedLogs.data);
 		} catch (err) {
