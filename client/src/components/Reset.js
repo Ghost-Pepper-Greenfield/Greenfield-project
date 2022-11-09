@@ -42,7 +42,7 @@ export default function Reset() {
           variant="outline-info"
           size="sm"
           className="w-100"  
-          onClick={() => sendPasswordReset()}>
+          onClick={() => sendPasswordReset(email)}>
          Send Password Reset Email</Button>
       </Form.Group>
       </Card.Body>

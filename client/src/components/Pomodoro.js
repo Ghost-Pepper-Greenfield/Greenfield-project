@@ -9,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import run from "../styles/run.gif";
 import idle from "../styles/idle.gif";
 import dance from "../styles/dance.gif";
+import pant from "../styles/pant.gif";
 import stand from "../styles/stand.gif";
 
 export default function Pomodoro() {
@@ -20,8 +21,8 @@ export default function Pomodoro() {
 	const [celebrate, setCelebrate] = useState(false);
 	const [pause, setPause] = useState(false);
 	const [postObject, setPostObject] = useState({});
-	const [uName, setName] = useState("");
 	const [uid, setUid] = useState("");
+	const [uName, setName] = useState("");
 	const [user, loading, error] = useAuthState(auth);
 	const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ export default function Pomodoro() {
 			const doc = await getDocs(q);
 			const data = doc.docs[0].data();
 			setUid(data.uid);
-			setName(data.uName);
+			setName(data.name);
 		} catch (err) {
 			console.error(err);
 			alert("An error occured while fetching user data");
@@ -74,7 +75,7 @@ export default function Pomodoro() {
 						setSeconds(59);
 						setMinutes(minutes - 1);
 					} else {
-						let minutes = displayMessage ? 24 : 4;
+						let minutes = displayMessage ? 24 : 1;
 						let seconds = 59;
 
 						setSeconds(seconds);
@@ -91,6 +92,7 @@ export default function Pomodoro() {
 
 	const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
 	const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
+	const timer = minutes * 60 + seconds;
 
 	return (
 		<div
@@ -98,13 +100,26 @@ export default function Pomodoro() {
 			className="d-flex flex-column justify-content-center align-items-center"
 		>
 			<Container>
+				{displayMessage ? (
+					<progress
+						class="nes-progress is-pattern"
+						value={120 - timer}
+						max="120"
+					></progress>
+				) : (
+					<progress
+						class="nes-progress is-pattern"
+						value={5 - timer}
+						max="5"
+					></progress>
+				)}
 				<Card.Body id="card__body" className="nes-balloon">
 					{pause === false ? (
 						celebrate === false ? (
 							runningTimer ? (
 								displayMessage ? (
 									<>
-										<img className="sprite" src={idle}></img>
+										<img className="sprite" src={pant}></img>
 									</>
 								) : (
 									<>
@@ -113,7 +128,7 @@ export default function Pomodoro() {
 								)
 							) : displayMessage ? (
 								<>
-									<img className="sprite" src={idle}></img>
+									<img className="sprite" src={pant}></img>
 								</>
 							) : (
 								<>
@@ -127,11 +142,10 @@ export default function Pomodoro() {
 						)
 					) : (
 						<>
-							<img className="sprite" src={stand}></img>
+							<img className="sprite" src={pant}></img>
 						</>
 					)}
 				</Card.Body>
-
 				<Container>
 					{displayMessage && (
 						<p className="nes-balloon">
