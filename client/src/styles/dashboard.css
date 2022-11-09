@@ -23,3 +23,10 @@ p {
     font-size: .9rem;
     align-self: center;
 }
+
+
+.nes-table-responsive {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
