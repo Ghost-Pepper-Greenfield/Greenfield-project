@@ -31,16 +31,29 @@ export default function LeaderboardLog() {
 	};
 
 	const chart = sortPlayers(leaderboard).map((player) => {
+		// {player.name} Level: {player.sum}
 		return (
-			<p>
-				{player.name} Level: {player.sum}
-			</p>
+			<tr>
+				<td>{player.name} </td>
+				<td>{player.sum} </td>
+			</tr>
 		);
 	});
 
 	return (
 		<>
-			<div>{chart}</div>
+			<div className="nes-table-responsive">
+				<table className="nes-table is-bordered">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Level</th>
+						</tr>
+					</thead>
+					<tbody>{chart}</tbody>
+				</table>
+			</div>
+			{/* <div>{chart}</div> */}
 		</>
 	);
 }

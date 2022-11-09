@@ -35,10 +35,13 @@ export default function UserLog() {
 	};
 
 	const table = logs.map((log) => {
+		//  Date: {log.date} Duration: {log.duration} Points: {log.points}
 		return (
-			<p>
-				Date: {log.date} Duration: {log.duration} Points: {log.points}
-			</p>
+			<tr>
+				<td>{log.date}</td>
+				<td>{log.duration}</td>
+				<td>{log.points}</td>
+			</tr>
 		);
 	});
 
@@ -52,5 +55,20 @@ export default function UserLog() {
 		if (uid) getUserLogs();
 	}, [uid]);
 
-	return <div>{table}</div>;
+	return (
+		<div className="nes-table-responsive">
+			<table className="nes-table is-bordered">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Duration</th>
+						<th>Points</th>
+					</tr>
+				</thead>
+				<tbody>{table}</tbody>
+			</table>
+		</div>
+	);
+
+	// <div>{table}</div>;
 }
