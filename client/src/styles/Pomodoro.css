@@ -1,24 +1,52 @@
 #pomodoro__wrapper {
-  display: flexbox;
-  flex-direction: inherit;
-  align-items: center;
-  justify-content: center;
   background-color: #6a8eae;
   height: 100vh;
 }
 
-.sprite {
-  height: 30vh;
+.sprite-run {
+  height: 40vh;
   image-rendering: pixelated;
+  background-image: url(background-run.gif);
+  background-size: 100%;
+  background: height 100%;
+}
+
+.sprite-dance {
+  height: 40vh;
+  image-rendering: pixelated;
+  background-image: url(background-dance.gif);
+  background-size: 100%;
+  background: height 100%;
+}
+
+.sprite-idle {
+  height: 40vh;
+  image-rendering: pixelated;
+  background-image: url(background-still.jpg);
+  background-size: 100%;
+  background: height 100%;
+}
+
+.sprite-pant {
+  height: 40vh;
+  image-rendering: pixelated;
+  background-image: url(background-still.jpg);
+  background-size: 100%;
+  background: height 100%;
 }
 
 #timer__wrapper {
-  align-items: center;
-  justify-content: center;
   font-size: 3rem;
 }
 
 p {
   font-size: .9rem;
-  align-self: center;
+}
+
+.nes-balloon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
