@@ -6,7 +6,7 @@
 .sprite-run {
   height: 40vh;
   image-rendering: pixelated;
-  background-image: url(/Users/bileltamouneit/Desktop/cc/Greenfield-project/client/src/styles/background-run.gif);
+  background-image: url(background-run.gif);
   background-size: 100%;
   background: height 100%;
 }
@@ -14,7 +14,7 @@
 .sprite-dance {
   height: 40vh;
   image-rendering: pixelated;
-  background-image: url(/Users/bileltamouneit/Desktop/cc/Greenfield-project/client/src/styles/background-dance.gif);
+  background-image: url(background-dance.gif);
   background-size: 100%;
   background: height 100%;
 }
@@ -22,7 +22,7 @@
 .sprite-idle {
   height: 40vh;
   image-rendering: pixelated;
-  background-image: url(/Users/bileltamouneit/Desktop/cc/Greenfield-project/client/src/styles/background-still.jpg);
+  background-image: url(background-still.jpg);
   background-size: 100%;
   background: height 100%;
 }
@@ -30,7 +30,7 @@
 .sprite-pant {
   height: 40vh;
   image-rendering: pixelated;
-  background-image: url(/Users/bileltamouneit/Desktop/cc/Greenfield-project/client/src/styles/background-still.jpg);
+  background-image: url(background-still.jpg);
   background-size: 100%;
   background: height 100%;
 }
