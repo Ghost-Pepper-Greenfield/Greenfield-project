@@ -113,9 +113,10 @@ out
 # Serverless Webpack directories
 .webpack/
 
-#environment
+# Environment variables
 .env
 .env.local
 
+# DS_Store
 db/.DS_Store
 .DS_Store
